@@ -17,28 +17,18 @@ execute:
   message: false
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-source("./Scripts/window_dressing.R")
+```{r}
+#| label: set-up
+#| include: false
+
+source("../scripts/window_dressing.R")
 quiz_url <- "https://canvas.calpoly.edu/courses/16654/quizzes/11019"
+
 library(tidyverse)
 library(flair)
 ```
 
-```{css, echo = FALSE}
-img {
-  vertical-align:middle
-}
-
-body {
-  text-shadow:none;
-}
-
-
-```
-
-(Since Week 1 consists of review of Stat 331 material, you should be able to skip some of the required readings and viewings. It is your responsibility to decide which areas you need to review before diving into Stat 431.)
-
+(Since Week 1 consists of review of Stat 331 material, you should be able to skip some of the required readings and viewings. It is your responsibility to decide which areas you need to review before diving into Stat 541.)
 
 ```{r, results = "asis", echo = FALSE}
 make_summary_table(vid_time = "6 min", 
@@ -74,12 +64,12 @@ checkin("Grammar of Graphics")
 
 Identify the elements of the following plot as
 
-(i) The aesthetic
-(ii) The geometry
-(iii) The scales
+(i) An aesthetic
+(ii) A geometry
+(iii) A scale
 (iv) None of the above
 
-<a href=<https://xkcd.com/252/"><img src="./Images/xkcd.png"></a>
+![](../images/escalators.png)
 
 (a) The x-axis is age
 (b) The y-axis is "Urge to run up the down escalator"
@@ -91,18 +81,13 @@ Identify the elements of the following plot as
 (h) Stick figure people are sliding down the line
 
 
-```{r, results = "asis", echo = FALSE}
-canvas_task(quiz_url)
-```
-
-
 ## Using ggplot2
 
 You should be comfortable with:
 
-* Using the "big 5" geometries
+* using the "big 5" geometries
 
-* Changing optional arguments.
+* changing optional arguments.
 
 * faceting
 
@@ -115,36 +100,39 @@ req_read("RStudio Primer: Data Visualization", url = "https://rstudio.cloud/lear
 req_read("R4DS Chapter 3: Data Visualisation", url = "https://r4ds.had.co.nz/data-visualisation.html", type = "Recommended")
 ```
 
-
 ```{r, results = "asis", echo = FALSE}
 checkin("ggplot")
 ```
 
-Fill in the blanks for the following plot:
+Fill in the six (6) blanks to make the following plot:
 
-```{r ggplot, include = FALSE, warning = FALSE}
+```{r}
+#| eval: false
+#| echo: true
+#| warning: false
+#| label: ggplot-plot-code
+
+starwars %>%
+  ____(species == "Human") %>%
+  ggplot(mapping = aes(____ = height, ____ = mass, ____ = gender)) + 
+  geom_point(____ = 17) +
+  ____(x = "Height (cm)", 
+       y = "Mass (kg)", 
+       color = "Gender Expression"
+       )
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| label: ggplot-plot
+
 starwars %>%
   filter(species == "Human") %>%
-  ggplot(aes(x = height, y = mass, color = gender)) + 
+  ggplot(mapping = aes(x = height, y = mass, color = gender)) + 
   geom_point(pch = 17) +
-  ggtitle("Heights and Weights of Humans in Star Wars")
+  labs(x = "Height (cm)", 
+       y = "Mass (kg)", 
+       color = "Gender Expression"
+       )
 ```
-
-```{r, echo = FALSE, warning = FALSE}
-decorate("ggplot") %>%
-  mask("filter ", background = "#fdff32")%>%
-  mask("x ", background = "#fdff32") %>%
-  mask("y ", background = "#fdff32") %>%
-  mask("color", background = "#fdff32") %>%
-  mask("pch ", background = "#fdff32") %>%
-  mask("point", background = "#fdff32")  %>%
-  mask("ggtitle", background = "#fdff32") 
-```
-
-
-
-```{r, results = "asis", echo = FALSE}
-canvas_task(quiz_url)
-```
-
-
