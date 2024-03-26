@@ -1,10 +1,20 @@
 ---
 title: "Week 1:  Review of Data Wrangling"
-author: "Stat 431"
-output:
-  prettydoc::html_pretty:
-    theme: tactile
-    highlight: github
+format: 
+  html: 
+    fontsize: 1em
+    mainfont: sans-serif
+    number-sections: true
+    number-depth: 2
+    section-divs: true
+    code-block-bg: "#76b5c5"
+    highlight-style: monochrome
+embed-resources: true
+editor: visual
+execute: 
+  echo: true
+  warning: false
+  message: false
 ---
 
 ```{r setup, include=FALSE}
