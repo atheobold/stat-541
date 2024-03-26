@@ -150,9 +150,10 @@ I expect you to enter this class with:
 # Assessment {#sec-grades}
 
 
+
 # Coursework Details
 
-## Practice Activities and Check-ins
+## Practice Activities and Check-ins (Due Wednesdays by 9am)
 
 These small "quizzes" or activities are posted each week, to give you a way to check your milestones on the main topics of the week.
 
@@ -160,7 +161,7 @@ You get full credit for any reasonable effort on these; I will not be grading th
 
 Check-ins are designed so that they can be done on your own, using the Coursework guides, in advance of class. Practice activities are meant to be done in class during or after lecture.
 
-## Lab Assignments
+## Lab Assignments (Due Mondays by 5pm)
 
 Each week, you will have a "lab" assignment, bringing together the week's skills.
 
@@ -178,11 +179,11 @@ I expect that you will approach each lab assignment seriously, investing the nec
 | Growing | The solution shows growth toward mastering the topic; however, elements of the solution bring into question your understanding of the topic, and thus further attention is needed. |
 +---------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
-## Projects. 
+## Projects (Due Mondays at 5pm)
 
 Each of the three units will culminate in a larger project, asking you to use the skills you have learned, and possibly some new skills, to create a polished deliverable.
 
-## Final Portfolio
+## Final Portfolio (Due Sunday, June 9)
 
 In lieu of exams, you will assemble a portfolio demonstrating your level of proficiency in each of the learning goals for this course. Examples of your code can only be taken from the lab assignments or the projects; i.e., not from check-ins or practice activities. On Canvas you can find a detailed description of the major and minor learning goals, how you can demonstrate your proficiency, and what is required for particular course grades.
 
