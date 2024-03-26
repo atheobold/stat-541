@@ -30,14 +30,22 @@ library(flair)
 
 (Since Week 1 consists of review of Stat 331 material, you should be able to skip some of the required readings and viewings. It is your responsibility to decide which areas you need to review before diving into Stat 541.)
 
-```{r, results = "asis", echo = FALSE}
+```{r}
+#| results: asis
+#| echo: false
+#| label: summary-table-of-activities
+
 make_summary_table(vid_time = "6 min", 
                    reading_time = "0-90 min", 
                    work_time = "0-15 min", 
                    canvas_activities = 2)
 ```
 
-```{r, results = "asis", echo = FALSE}
+```{r}
+#| results: asis
+#| echo: false
+#| label: extra-resources
+
 extra_rec("")
 ```
 
@@ -54,11 +62,19 @@ You should feel comfortable with:
 * Identifying these elements of existing plots
 
 
-```{r, results = "asis", echo = FALSE}
+```{r}
+#| results: asis
+#| echo: false
+#| label: required-video
+
 req_vid("Grammar of Graphics with ggplot2", type = "Required", url = "https://www.youtube.com/embed/kepKM7Z2O54")
 ```
 
-```{r, results = "asis", echo = FALSE}
+```{r}
+#| results: asis
+#| echo: false
+#| label: check-in-grammer-of-graphics
+
 checkin("Grammar of Graphics")
 ```
 
@@ -91,16 +107,28 @@ You should be comfortable with:
 
 * faceting
 
-```{r, results = "asis", echo = FALSE}
-req_read("RStudio Primer: Data Visualization", url = "https://rstudio.cloud/learn/primers/3", type = "Required")
+```{r}
+#| results: asis
+#| echo: false
+#| label: required-reading-tutorial
+
+req_read("RStudio Primer: Data Visualization", url = "https://posit.cloud/learn/recipes", type = "Recommended")
 ```
 
 
-```{r, results = "asis", echo = FALSE}
-req_read("R4DS Chapter 3: Data Visualisation", url = "https://r4ds.had.co.nz/data-visualisation.html", type = "Recommended")
+```{r}
+#| results: asis
+#| echo: false
+#| label: require-reading-r4-ds
+
+req_read("R4DS Chapter 3: Data Visualisation", url = "https://r4ds.hadley.nz/data-visualize.html", type = "Recommended")
 ```
 
-```{r, results = "asis", echo = FALSE}
+```{r}
+#| results: asis
+#| echo: false
+#| label: check-in-ggplot
+
 checkin("ggplot")
 ```
 
