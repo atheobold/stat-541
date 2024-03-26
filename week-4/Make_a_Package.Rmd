@@ -1,0 +1,152 @@
+---
+title: "Week 4:  Making Packages"
+author: "Stat 431"
+output:
+  prettydoc::html_pretty:
+    theme: tactile
+    highlight: github
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+source("./Scripts/window_dressing.R")
+quiz_url <- "https://canvas.calpoly.edu/courses/16654/quizzes/11019"
+library(tidyverse)
+library(flair)
+```
+
+```{css, echo = FALSE}
+img {
+  vertical-align:middle
+}
+
+body {
+  text-shadow:none;
+}
+
+
+```
+
+This week, you will learn to make your very own R Package.
+
+
+```{r, results = "asis", echo = FALSE}
+make_summary_table(vid_time = "6 min", 
+                   reading_time = "0-90 min", 
+                   work_time = "0-15 min", 
+                   canvas_activities = 2)
+```
+
+```{r, results = "asis", echo = FALSE}
+extra_rec("")
+```
+
+* [RStudio Cheatsheets](https://rstudio.com/resources/cheatsheets/) are a great shortcut resource to have on hand, to remind you of which functions exist and what they do.
+* The [R for Data Science Textbook](https://r4ds.had.co.nz/) is free online.
+* [RStudio's Primers](https://rstudio.cloud/learn/primers) are interactive lessons on the basics of R; these would be a great way to refresh your knowledge.
+
+## Basics of Packages
+
+In principle, an R Package is nothing more than a folder with a very specific structure, 
+which allows R to recognize it as a "Package".  Minimally, to be a package, a folder
+must contain:
+
+1. A subfolder named `/R/`, containing `.R` code files.
+2. A text file named `DESCRIPTION`, which contains information about the package 
+in a *very* specifically formatted way.
+3. A text file named `NAMESPACE`, which contains a list of the functions 
+
+
+## The Grammar of Graphics
+
+You should feel comfortable with:
+
+* Knowing what goes into an aesthetic (`aes()`) versus the geometry (`geom_*()`)
+
+* Identifying these elements of existing plots
+
+
+```{r, results = "asis", echo = FALSE}
+req_vid("Grammar of Graphics with ggplot2", type = "Required", url = "https://www.youtube.com/embed/kepKM7Z2O54")
+```
+
+```{r, results = "asis", echo = FALSE}
+checkin("Grammar of Graphics")
+```
+
+Identify the elements of the following plot as
+
+(i) The aesthetic
+(ii) The geometry
+(iii) The scales
+(iv) None of the above
+
+<a href=<https://xkcd.com/252/"><img src="./Images/xkcd.png"></a>
+
+(a) The x-axis is age
+(b) The y-axis is "Urge to run up the down escalator"
+(c) The y-axis ranges from "Weak" to "Strong"
+(d) This is a line graph
+(e) The two lines are "What I was supposed to feel" and "What I've actually felt"
+(f) The lines are labeled with text
+(g) Only even ages are labelled
+(h) Stick figure people are sliding down the line
+
+
+```{r, results = "asis", echo = FALSE}
+canvas_task(quiz_url)
+```
+
+
+## Using ggplot2
+
+You should be comfortable with:
+
+* Using the "big 5" geometries
+
+* Changing optional arguments.
+
+* faceting
+
+```{r, results = "asis", echo = FALSE}
+req_read("RStudio Primer: Data Visualization", url = "https://rstudio.cloud/learn/primers/3", type = "Required")
+```
+
+
+```{r, results = "asis", echo = FALSE}
+req_read("R4DS Chapter 3: Data Visualisation", url = "https://r4ds.had.co.nz/data-visualisation.html", type = "Recommended")
+```
+
+
+```{r, results = "asis", echo = FALSE}
+checkin("ggplot")
+```
+
+Fill in the blanks for the following plot:
+
+```{r ggplot, include = FALSE, warning = FALSE}
+starwars %>%
+  filter(species == "Human") %>%
+  ggplot(aes(x = height, y = mass, color = gender)) + 
+  geom_point(pch = 17) +
+  ggtitle("Heights and Weights of Humans in Star Wars")
+```
+
+```{r, echo = FALSE, warning = FALSE}
+decorate("ggplot") %>%
+  mask("filter ", background = "#fdff32")%>%
+  mask("x ", background = "#fdff32") %>%
+  mask("y ", background = "#fdff32") %>%
+  mask("color", background = "#fdff32") %>%
+  mask("pch ", background = "#fdff32") %>%
+  mask("point", background = "#fdff32")  %>%
+  mask("ggtitle", background = "#fdff32") 
+```
+
+
+
+```{r, results = "asis", echo = FALSE}
+canvas_task(quiz_url)
+```
+
+

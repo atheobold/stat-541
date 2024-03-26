@@ -1,0 +1,186 @@
+---
+title: "How to Succeed in Stat 431"
+output:
+  prettydoc::html_pretty:
+    theme: tactile
+    highlight: github
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+source("./Scripts/window_dressing.R")
+quiz_url <- "https://canvas.calpoly.edu/courses/16654/quizzes/9199"
+```
+
+```{css, echo = FALSE}
+img {
+  vertical-align:middle
+}
+
+body {
+  text-shadow:none;
+}
+
+
+```
+
+---
+
+## What your typical week will look like
+
+### 1. Coursework
+
+*Due Wednesdays at midnight*
+
+Each week, you will be expected to work through a sequence of readings, videos, and small practice activities.  These are meant to replace the in-class lecture experience; thus, you should plan to devote about 1-3 hours a week to this Coursework. 
+
+*([Click here](https://rstudio.csm.calpoly.edu/Week0_GitHub/GitHub.html) to see the first Coursework Page.)*
+
+### 2. Check-In Activities
+
+*Due Wednesdays at midnight*
+
+As part of your "in-class" style work, you will also have short practice tasks to complete, to tie together the material.  You should plan for these to take you 1-3 hours per week.
+
+These are meant to replace the in-class group work experience; as such, you are strongly encouraged to work on these in groups.  In particular, you may want to attack these assignments during the "work parties" hosted on Discord every Monday and Wednesday. *(See [Work Parties](https://rstudio.csm.calpoly.edu/Work_Parties/) for more information.)*
+
+
+### 3. Lab Assignment
+
+*Due Fridays at midnight*
+
+Aside from the Final Project and Exam, the majority of your grade in this class comes from Lab Assignments.  You should plan to spend a large amount of time outside of class (5-10 hours each week) completing your Lab Assignment.
+
+Lab work is **individual**.  Although you may discuss ideas with your classmates and seek help from the usual sources, all code and text **absolutely must** be your own.  
+
+Labs will be submitted via GitHub Classroom **and** on Canvas.
+
+
+### 4. Peer Review
+
+*Due Sundays at midnight*
+
+As part of your Lab Assignment grade, you will also be asked to review and rate your classmates' work.  This will be done on Canvas, and a rubric will be supplied for you.
+
+
+
+### 5. Challenge
+
+*Due Sundays at midnight*
+
+Finally, each week we will post a special challenge.  Your final grade in this category will be taken out of 100.
+
+You get 5 points simply for making a submission; in principle, these tasks can be accomplished with very little effort.  For example, Week Two will ask you to create a plot. As you likely recall from Stat 331, you can make a simple plot quickly, but making a truly impressive plot takes a lot of work!
+
+If you do choose to put forth additional effort, you may be rewarded with bonus points.
+
+Note that with no bonus points, you will finish the quarter with a 50/100 in this category!  Thus, you'll need to choose some weeks to compete for bonuses to get full credit in this category.
+
+---
+
+## What to do when you have questions
+
+Stuck on something, or have a logistical question about the course?  Follow these easy steps to success!
+
+### 1. Make sure your question isn't already answered somewhere.
+
+#### Double-check the syllabus.
+
+![](https://www.sc.edu/about/offices_and_divisions/cte/events_calendar/spring_2016/images/developing_course_syllabus.png)
+
+#### Double-check the instructions for the assignment.
+
+Remember that most details will appear in the Coursework pages or in the Lab Assignment instructions - not in the submission links on Canvas.
+
+#### Double-check the Announcements
+
+On the "Account" section of Canvas, under "Notifications", make sure your preferences are updated for Announcements.  We recommend opting to receive an email any time an announcement is posted.
+
+
+![](./Images/notifications.png)
+
+
+[Link to Announcements](https://canvas.calpoly.edu/courses/16654/announcements)
+
+
+### 2. Visit the class discussion forum.
+
+Perhaps your question has already been asked and answered!
+
+If not, post your question.  Make sure to give it a helpful title; for example, instead of "Lab 1 Question", choose "How to add axis labels with ggplot".
+
+[Link to Discussion Forum](https://canvas.calpoly.edu/courses/16654/discussion_topics)
+
+
+### 3.  File an issue on GitHub
+
+If your question is specific to your individual Lab work, you may find it easiest to seek help directly on GitHub.
+
+Navigate to your repository, and create a new issue that explains where you are having trouble.  Dr. Glanz and Dr. Bodwin will receive a notifiation automatically.
+
+
+
+### 4. Attend Work Parties or Office Hours
+
+["Work Parties"](link) will be held on Discord during the original hours of the class, MW 2-4pm.  This is a good way for you to drop in and get simple questions answered by your classmates or professors.
+
+In office hours, we will be able to help you one-on-one or in small groups.  This is a good option for dealing with problems specific to your code; for example, if there is an error you are having trouble identifying.
+
+* Dr. Glanz is available MWF from 8-10am.  Please refer to the link on Canvas.
+
+* Dr. Bodwin is available via [Calendly Appointments](https://calendly.com/kbodwin/office-hours)
+
+
+
+### 5. Send a message via Canvas
+
+If your question is private, you may message one or both professors from Canvas.
+
+In the "Inbox" section, compose a new message.
+
+As a shortcut to message both professors, you can simply choose "Teachers" as your recipient:
+
+![](./Images/canvas_message.png)
+
+**Note:** Notice what is *not* on this list: Sending an email.  Please send all messages via Canvas, not through email.
+
+
+---
+
+## Tips for succeeding in this class:
+
+### Take the Coursework pages as seriously as you take in-person lecture.
+
+
+With this class being online and asynchronous, there will likely be a temptation to skip things, multitask, and cut corners.  
+
+We want to encourage you to commit to giving the Coursework segments the same level of attention that you would ordinarily give to in-class lecture.  Put the same effort into the Check-In Activities that you would if you were sitting in a classroom.
+
+![](https://media.giphy.com/media/xUNda4ziBZR0nzca9W/giphy.gif)
+
+In return for your efforts, we promise to choose required videos and readings carefully, so that we do not waste your time. 
+
+
+### Google is your friend.
+
+Most of the material in this course is beyond the boundaries of what can be found in a textbook.  You'll need to be creative in finding your own resources.
+
+![](https://media3.giphy.com/media/3oKIPmM4hkQIf4p5T2/source.gif)
+
+
+Learn to Google for tutorials and examples; to use [Stack Overflow](https://stackoverflow.com/); to ask questions on Twitter; and to otherwise make good use of the vast and welcoming R network on the internet.
+
+
+###  Find ways to work together.
+
+While much of this course is identical in a remote setting, it is impossible to replicate the experience of working together on a coding task in person.
+
+We hope that we will all be purposeful and creative about finding ways to work as a team.
+
+![](https://media1.tenor.com/images/73929a723ee5cde85b313407cd4e4640/tenor.gif?itemid=13261612)
+
+We encourage you to establish Study Buddies and/or Study Groups early in the quarter, even if you don't know anyone yet.  
+
+The class [Discord server](https://discord.gg/aaC4zG7) and [Work Parties](https://rstudio.csm.calpoly.edu/Welcome_431/) are a great way to get started.  We also hope you will be proactive about setting up your own video chat sessions, phone calls, Google Docs, group chats, etc.  (How many different platforms can you talk about Stat 431 on?  Facebook? Snapchat?  Instagram?  TikTok?  Hinge???)
+

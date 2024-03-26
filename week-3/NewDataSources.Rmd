@@ -1,0 +1,135 @@
+---
+title: "Week 3:  New Data Sources"
+author: "Stat 431"
+output:
+  prettydoc::html_pretty:
+    theme: tactile
+    highlight: github
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+source("./Scripts/window_dressing.R")
+quiz_url <- "https://canvas.calpoly.edu/courses/16654/quizzes/12677"
+library(tidyverse)
+library(flair)
+library(lubridate)
+library(gganimate)
+```
+
+```{css, echo = FALSE}
+img {
+  vertical-align:middle
+}
+
+body {
+  text-shadow:none;
+}
+
+
+```
+
+
+```{r, results = "asis", echo = FALSE}
+make_summary_table(vid_time = "5 min", 
+                   reading_time = "45 min", 
+                   work_time = "60 min", 
+                   canvas_activities = 2)
+```
+
+## The RStudio Connections Tab (and Databases)
+
+Most, if not all, of the datasets you've worked with have been read into R and worked with internally. This often takes the form of reading in TXT, CSV, or TSV files stored locally on your machine. However, many datasets are stored on servers or machines other than your own and it could be tedious, redundant, or inefficient to create copies of them on your own machine. Fortunately, we're not forced into working exclusively with local data files!
+
+When you open RStudio you should notice that next to the Environment and History tabs is a **Connections** tab. This tab helps assist you in accessing external data sources and tracking your current connections to them. As helpful as this tab can be, all of your work connecting to external databases or other data sources can be done via your own code in a script or RMarkdown file if you wish.
+
+We're going to get some practice by connecting to a SQLite database. To keep the exercise as simple as possible, the database is actually still going to live on your own machine! However, we will still be accessing data without reading any files into our environment.
+
+**Please go to the following site, read about the Chinook sample database tables, and then download the Chinook sample database:**
+
+```{r, results = "asis", echo = FALSE}
+req_read("SQLite Sample Database", url = "https://www.sqlitetutorial.net/sqlite-sample-database/")
+```
+
+It should have downloaded a zipped file with the database file inside it. You'll need to unzip the file and put the database file in a location of your choosing, but remember where you put it!
+
+Now, follow the code on the site below to connect to and access the chinook.db file you just downloaded. 
+
+```{r, results = "asis", echo = FALSE}
+req_read("SQLite Example", url = "https://db.rstudio.com/databases/sqlite/")
+```
+
+**Notes:**
+
+- You do NOT need to install the latest development version of the `RSQLite` package.
+- Instead of ":memory:" inside your `dbConnect()` function, you should specify the path to your chinook.db file including the filename itself.
+- You do NOT need to write or use SQL code to access and work with the database. You can store the results of `db` functions in variables in the `R` environment or even pipe them into other pipe-friendly functions.
+
+```{r, results = "asis", echo = FALSE}
+checkin("Chinook Database")
+```
+
+a) How many observations/rows are in the `employees` table?
+
+b) How many different job titles are included in the `employees` table?
+
+c) What is the average of the `Total` variable in the `invoices` table?
+
+
+```{r, results = "asis", echo = FALSE}
+canvas_task(quiz_url)
+```
+
+Before you finish this portion of the coursework, take a moment to run `?dbConnect` and notice that with this function you have the ability to connect to all sorts of external data sources that may require more credentials or authentication.
+
+```{r, results = "asis", echo = FALSE}
+extra_rec("")
+```
+
+* [Using RStudio Connections](https://support.rstudio.com/hc/en-us/articles/115010915687-Using-RStudio-Connections)
+* [RStudio Connections Pane](https://db.rstudio.com/rstudio/connections/)
+
+## Application Programming Interfaces (APIs)
+
+Now that we've talked about the JSON format for data files, it's time we talked about one of the primary vehicles for them: APIs.
+
+```{r, results = "asis", echo = FALSE}
+req_vid("What is an API?", url = 'https://www.youtube.com/watch?v=s7wmiS2mSXY', 
+        embed = '<iframe width="400" height="225" style="width: 400px; height: 225px;" src="https://www.youtube.com/embed/s7wmiS2mSXY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>')
+```
+
+This is the tip of the iceberg when it comes to APIs, but it will suffice to enable a lot of cool things for us. The video above used some nice examples like the restaurant and travel services, but there are APIs for accessing all kinds of data out there...like Facebook, Twitter, Google Maps, etc. 
+
+For our class we're not interested in **creating** APIs, but mostly **using** them to access data that we otherwise couldn't get our hands on...at least not as easily.
+
+```{r, results = "asis", echo = FALSE}
+req_read("R API Tutorial", url = "https://www.dataquest.io/blog/r-api-tutorial/")
+```
+
+```{r, results = "asis", echo = FALSE}
+checkin("R API Tutorial")
+```
+
+a) What two packages did the tutorial make use of?
+
+* rvest and jsonlite
+* httr and jsonlite
+* httr and rvest
+* XML and rvest
+
+b) What type of request will we likely start with when getting data from an API?
+
+* PULL
+* GIMME
+* GET
+* SUMMON
+
+c) How many people are currently aboard the International Space Station?
+
+```{r, results = "asis", echo = FALSE}
+canvas_task(quiz_url)
+```
+
+
+
+

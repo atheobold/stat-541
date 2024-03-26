@@ -1,0 +1,168 @@
+---
+title: "Week 0:  Setting up Git and GitHub"
+author: "Stat 431"
+output:
+  prettydoc::html_pretty:
+    theme: tactile
+    highlight: github
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+source("./Scripts/window_dressing.R")
+quiz_url <- "https://canvas.calpoly.edu/courses/16654/quizzes/9199"
+```
+
+```{css, echo = FALSE}
+img {
+  vertical-align:middle;
+}
+
+body {
+  text-shadow:none;
+}
+
+```
+
+
+
+All your assignments for Stat 431 will be recieved and submitted via **GitHub**.  This page will take you through some practice activities, so you can get used to everything.
+
+
+```{r, results = "asis", echo = FALSE}
+make_summary_table(vid_time = "45 min", 
+                   reading_time = "0 min", 
+                   work_time = "30-90 min", 
+                   canvas_activities = 5)
+```
+
+```{r, results = "asis", echo = FALSE}
+extra_rec("Git and GitHub")
+```
+
+* [This Video](https://www.youtube.com/embed/w3jLJU7DT5E) provides a cheesy but cute introduction to GitHub.
+* [GitHub Desktop](https://desktop.github.com/) is a nice client for interfacing with GitHub.  You do not need it today (or ever), but you may find it makes your life easier.
+
+## Introduction to Git and GitHub
+
+```{r, results = "asis", echo = FALSE}
+req_vid("Intro to Git and GitHub")
+```
+
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/BCQHnlnPusY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br><br>
+
+
+```{r, results = "asis", echo = FALSE}
+checkin("Make a GitHub Account")
+```
+
+Create an account on [GitHub.com](GitHub.com), if you have not already.
+
+Ideally, your username will be related to your real name, e.g. "kbodwin" rather than "SuperKrazy2000".  However, this is not required; choose whatever username you prefer.  In particular, if you want to avoid making your affiliation with this course public in any way, you may want to anonymize your account.
+
+
+Make sure that your `@calpoly.edu` email is linked to your account.  (This is under the `Email` section of `Settings` on GitHub.com.  You do not need to make your `@calpoly` email your primary email, nor do you need to make it publicly viewable.)
+
+ 
+```{r, results = "asis", echo = FALSE}
+canvas_task(quiz_url)
+```
+
+
+```{r, results = "asis", echo = FALSE}
+checkin("Make a repository")
+```
+
+Create a **private** repository called "About Me".
+
+Create a new text file.  In it, answer the following questions:
+
+1. What is your year and major?
+2. What are you most excited to learn in Stat 431?
+
+
+Take a screenshot of your repository.  It should look similar to 9:43 of the video.
+
+```{r, results = "asis", echo = FALSE}
+warning_sign("This class will sometimes ask you to take screenshots.  Please make sure that no private information is displayed in the image before you upload it to Canvas!")
+```
+ 
+```{r, results = "asis", echo = FALSE}
+canvas_task(quiz_url)
+```
+
+## Branches and Pull Requests
+
+```{r, results = "asis", echo = FALSE}
+req_vid("Branching")
+```
+
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/oPpnCh7InLY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br><br>
+
+
+```{r, results = "asis", echo = FALSE}
+checkin("Make a branch and pull request")
+```
+
+Create a new branch of your "About Me" repository.  Name this branch after your favorite animal.
+
+In this branch, make a small change to your text file.
+
+Create a **Pull Request** to your `master` branch from your new branch.
+
+Take a screen shot of your completed pull request.  It should look like 8:14 of the video.
+ 
+```{r, results = "asis", echo = FALSE}
+canvas_task(quiz_url)
+```
+
+## Forks and Pull Requests
+
+```{r, results = "asis", echo = FALSE}
+req_vid("Forks and pull requests")
+```
+
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/_NrSWLQsDL4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br><br>
+
+```{r, results = "asis", echo = FALSE}
+checkin("Fork and pull request someone else's repository")
+```
+
+Navigate to the [Week 0 Repository](https://github.com/Cal-Poly-Advanced-R/Week_0) for this course.
+
+**Fork** the repository into your own account.
+
+Edit the poem to add a new line.  The new line should be two sentences or phrases that rhyme.  See Dr. Glanz's contribution for an example.
+
+Create a **Pull Request** to add your line to the group's poem.  Make sure you are pull requesting the original repository owned by the *Cal-Poly-Advanced-R* account, not pull requesting your own forked copy.
+
+ Once your pull request has been accepted, take a screenshot of that page.  It should look like 11:42 of the video.  
+ 
+```{r, results = "asis", echo = FALSE}
+canvas_task(quiz_url)
+```
+
+
+## Issues
+
+```{r, results = "asis", echo = FALSE}
+req_vid("Issues and Markdown")
+```
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/WMykv2ZMyEQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br><br>
+
+```{r, results = "asis", echo = FALSE}
+checkin("Comment on an Issue")
+```
+
+Find the Issue that Dr. Bodwin created in the Week 0 Repository.
+
+Reply to the question somewhere below.  Use at least one Markdown styling trick in your reply.
+
+ 
+```{r, results = "asis", echo = FALSE}
+canvas_task(quiz_url)
+```

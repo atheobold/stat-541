@@ -1,0 +1,133 @@
+---
+title: "Week 3:  New Data Formats"
+author: "Stat 431"
+output:
+  prettydoc::html_pretty:
+    theme: tactile
+    highlight: github
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+source("./Scripts/window_dressing.R")
+quiz_url <- "https://canvas.calpoly.edu/courses/16654/quizzes/12663"
+library(tidyverse)
+library(flair)
+library(lubridate)
+library(gganimate)
+```
+
+```{css, echo = FALSE}
+img {
+  vertical-align:middle
+}
+
+body {
+  text-shadow:none;
+}
+
+
+```
+
+
+```{r, results = "asis", echo = FALSE}
+make_summary_table(vid_time = "20 min", 
+                   reading_time = "30 min", 
+                   work_time = "60 min", 
+                   canvas_activities = 2)
+```
+
+```{r, results = "asis", echo = FALSE}
+extra_rec("")
+```
+
+* The GitHub page for [`rvest`](https://github.com/tidyverse/rvest). Be sure to check out the vignettes and other documentation.
+* In-depth (for the scope of our course) [crash course in JSON](https://www.youtube.com/watch?v=wI1CWzNtE-M)
+
+## Structured, but Non-Tabular Data
+
+It's likely that a huge portion of the datasets you've worked with in your life thus far are very well structured and organized to the point of being **tabular**. That is, the dataset consists of a single table with rows and columns. If you're not familiar with the concept of **tidy data** I suggest you check out this [`tidyr` vignette](https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html) on what it means for a dataset to be "tidy." Most of your datasets have likely even been tidy:
+
+- Each variable forms a column
+- Each observation forms a row
+
+Almost everyone's experiences beyond this probably involved taking multiple **tidy** datasets and combining/merging them in some way, but the overall dataset still fit into this tabular structure. These often came in the form of TXT, CSV, or TSV files.
+
+Our world is rich with data and a great deal of it doesn't come in nice, neat tables...BUT a lot of it is still extremely structured and well organized.
+
+### Web-Scraping
+
+Web pages can be beautiful and rich! HTML provides a wonderful structure with which to house this beauty and richness. Unfortunately, this structure is not the tabular structure that we're used to, but it's still very accessible. In particular, people have developed tools in `R` for working with HTML. One very popular one is the `rvest` package. Take a few minutes to (re-)introduce yourself to web-scraping with `rvest` and working with HTML in `R`.
+
+
+```{r, results = "asis", echo = FALSE}
+req_vid("Introduction to Web-Scraping with rvest", url = 'https://www.youtube.com/watch?v=MFQTHrCiAxA', 
+        embed = '<iframe width="400" height="225" style="width: 400px; height: 225px;" src="https://www.youtube.com/embed/MFQTHrCiAxA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>')
+```
+
+I encourage you to following with the video to the point of copying and running the same code that's being demonstrated.
+
+```{r, results = "asis", echo = FALSE}
+checkin("rvest")
+```
+
+a) What is the CSS tool called that is used to identify the portions of the webpage we're interested in scraping?
+
+* CSS Thingy
+* HTML Dissector
+* Selector Gadget
+* HTML2CSS
+
+b) What types of webpages are scraped in the video? (Make sure you understand the difference between the two, even if you have to look it up)
+
+* static
+* dynamic
+
+```{r, results = "asis", echo = FALSE}
+canvas_task(quiz_url)
+```
+
+
+### Collaborating with Remote Data Sources
+
+Scraping the web is great, but wouldn't it be great if we could get data from lots of other sources that we didn't have to clean and wrangle ourselves...as is so often required of data gathered from HTML.
+
+You've likely already noticed, via your work with `leaflet`, another very popular data format called "JSON". JSON is short for **J**ava**S**cript **O**bject **N**otation and is a syntax for storing and exchanging data...but data in a much broader sense than we're used to thinking about. 
+
+In the middle of a statistics-related course when I hear the word "data" my mind instinctively envisions something tabular with which we could do some sort of visualization or analysis with. However, in the broadest sense, the word "data" really just describes pieces of information...which encapsulates everything from movie theater schedules when you look up showtimes on a website to what your cell phone *uses* as part of your "data plan."
+
+While the website for your favorite movie theater may not have had your visualization and analysis plans in mind, their data may still be of interest to us. Many companies and organizations have built tools that allow access to their data in a more streamlined way, and JSON has become a ubiquitous format for many of these data sources to use. 
+
+```{r, results = "asis", echo = FALSE}
+req_vid("What is JSON?", url = 'https://www.youtube.com/watch?v=JuFdz8f-cT4', 
+        embed = '<iframe width="400" height="225" style="width: 400px; height: 225px;" src="https://www.youtube.com/embed/JuFdz8f-cT4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>')
+```
+
+One of the reasons the JSON format is so important and useful is because it can accommodate very complex types and shapes of data. So while it may not always be workable into a tabular form, it still maintains a high degree of structure that we can exploit!
+
+```{r, results = "asis", echo = FALSE}
+req_read("Short JSON Introduction", url = "https://www.w3schools.com/whatis/whatis_json.asp")
+```
+
+
+```{r, results = "asis", echo = FALSE}
+checkin("JSON")
+```
+
+a) Objects are held in _____.
+
+* parentheses
+* double quotes
+* square brackets
+* curly braces
+
+b) While it may seem tedious compared to our usual tabular forms of data, JSON data is easy to read because it _____.
+
+* comes in name/value pairs
+* is separated by "-----"
+* comes in table/name/value triplets
+
+```{r, results = "asis", echo = FALSE}
+canvas_task(quiz_url)
+```
+

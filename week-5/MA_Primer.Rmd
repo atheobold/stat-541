@@ -1,0 +1,501 @@
+# Matrix Algebra
+
+<script>
+function example(ex_name) {
+    var x = document.getElementById(ex_name);
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+</script>
+
+<style>
+.example {
+  background-color: cornsilk;
+  color: blue;
+} 
+.q {
+  background-color: cornsilk;
+  color: darkred;
+  text-align: right;
+} 
+.alert {
+  background-color: light red;
+  color: dark blue;
+  font: bold;
+  text-align: center;
+} 
+button{
+  margin:auto;
+  display:block;
+  float: right;
+}
+</style>
+
+## Scalars {-}
+
+A **scalar** is a single number by itself.
+
+In statistics, a scalar will usually be:
+
+* A single data observation
+* A parameter
+* A summary statistic
+
+
+### Notation and Examples {-}
+
+Try to come up with your own real world examples that each of the following scalars might be representing.  Then click to see my example.
+
+A single observation:
+
+$$ x = 90 $$
+<button onclick="example('ex1')">Example</button>
+<div id="ex1" class="example" style="display:none">
+
+Yao Ming is 7 feet 6 inches tall.
+
+</div>
+
+A parameter:
+
+$$ \mu = 67 $$
+
+<button onclick="example('ex3')">Example</button>
+<div id="ex3" class="example" style="display:none">
+
+The average height of all people in the United States is 5 feet 7 inches.
+
+</div>
+
+Summary statistics:
+
+$$ \bar{x} = 79, \; s_x = 7.96$$
+<button onclick="example('ex2')">Example</button>
+<div id="ex2" class="example" style="display:none">
+
+The average height of ten random NBA players is 6 feet 7 inches, with a standard deviation of 7.96.
+
+</div>
+
+Multiple observations:
+
+$$ a_1 = 8, a_2 = 3$$
+$$ b_1 = 4, b_2 = 1 $$
+<button onclick="example('ex4')">Example</button>
+<div id="ex4" class="example" style="display:none">
+
+Ex 3:  My roommate Marie and I went to see *Wonder Woman*.  She rated it as 8 out of 10, and I rated it as 4 out of 10.  Later, we watched the movie *Suicide Squad*.  She gave it a 3 out of 10, and I gave it a 1 out of 10.
+
+</div>
+
+
+### Calculations with scalars {-}
+
+
+```{r}
+x <- 90
+
+mu <- 72
+
+nba_sample <- c(86, 70, 76, 88, 78, 84, 70, 90, 68, 80)
+
+x_bar <- mean(nba_sample)
+sx <- sd(nba_sample)
+
+a_1 <- 8
+a_2 <- 3
+b_1 <- 4
+b_2 <- 1
+```
+
+This is pretty straightforward, by hand or in **R**.
+
+```{r}
+avg_ww <- (a_1 + b_1)/2
+avg_ww
+
+```
+
+The average rating given to *Wonder Woman* was $(a_1 + b_1)/2$ = `r avg_ww`
+
+```{r}
+t <- (x_bar - mu)/(sx/sqrt(10))
+t
+```
+
+
+There is fairly strong evidence that NBA players tend to be taller than average (t-score of $t = \frac{\bar{x} - \mu}{s_x/\sqrt{10}}$ = `r round(t,2)`).
+
+
+## Vectors {-}
+
+A **vector** is a set of scalars put together.
+
+In statistics, a vector might be a set of *samples* from a single variable or a set of *observations of many variables* from a single sample.
+
+### Notation and Examples {-}
+
+
+<div class = "example">
+Marie's ratings and Kelly's ratings of two movies, *Wonder Woman* and *Suicide Squad*
+</div>
+
+$${\bf a} = \left( \matrix{a_1 \\ a_2} \right) = \left( \matrix{8 \\ 3} \right)$$
+$${\bf b} = \left( \matrix{b_1 \\ b_2} \right) = \left( \matrix{4 \\ 1} \right)$$
+<div class = "example">
+Sample of 10 NBA heights in inches:  
+
+86, 70, 76, 88, 78, 84, 70, 90, 68, 80
+</div>
+
+$${\bf h} = (86, 70, 76, 88, 78, 84, 70, 90, 68, 80)^t$$
+$${\bf h} = (86, 70, 76, 88, 78, 84, 70, 90, 68, 80)^{'}$$
+
+<button onclick="example('q1')">???</button>
+<div id="q1" class="q" style="display:none">
+What is the deal with the "t" or the apostrophe?
+</div>
+
+
+### Calculations with vectors {-}
+
+```{r}
+nba_sample <- c(86, 70, 76, 88, 78, 84, 70, 90, 68, 80)
+
+mean(nba_sample)
+sd(nba_sample)
+```
+
+In our sample of 10 NBA players, the mean height was `r mean(nba_sample)` and the sample standard deviation was `r sd(nba_sample)`.
+
+```{r}
+
+a <- c(a_1, a_2)
+b <- c(b_1, b_2)
+
+mean(a)
+mean(b)
+
+```
+
+Marie rated DC movies at `r mean(a)` on average.  Kelly rated the DC movies at `r mean(b)` on average.
+
+## Matrices {-}
+
+A **matrix** is a two dimensional set of scalars; or equivalently, many vectors put together.
+
+Some vocabulary about matrices:
+
+* The **dimension of a matrix** ($m \times n$) is the number of rows ($m$) by the number of columns ($n$).
+* The elements of the matrix are often written as $a_{ij}$, as in
+$$ {\bf A} \, = \, \left( \matrix{ a_{11} & a_{12} \\ a_{21} & a_{22} } \right) $$
+* A $1 \times n$ matrix is called a *row vector*.
+* A $m \times 1$ matrix is called a *column vector*.
+* A *square* matrix has the same number of rows as columns.
+* A *diagonal* matrix has all zeros except on the diagonal.
+
+Special Definitions:
+
+${\bf 1_n}$ is a column vector of $n$ *ones*:
+
+$${\bf 1_n} = \left( \matrix{1 \\ 1 \\ \vdots \\ 1} \right)$$
+
+```{r}
+one = rep(1, 3)
+one
+```
+
+${\bf I_n}$ is called the $n \times n$ *identity matrix*:
+
+$${\bf I_n} = \left( \matrix{1 & 0 & \ldots \\ 0 & 1 & \ldots \\ \vdots & \vdots & \vdots \\ \ldots & 0 & 1} \right)$$
+
+```{r}
+I = diag(3)
+I
+```
+
+
+${\bf J_n}$ is called the $n \times n$ *ones matrix*:
+
+$${\bf J_n} = \left( \matrix{1 & 1 & \ldots \\ 1 & 1 & \ldots \\ \vdots & \vdots & \vdots \\ \ldots & 1 & 1} \right)$$
+```{r}
+J = matrix(1, 3, 3)
+J
+```
+
+
+### Examples {-}
+
+<button onclick="example('ex4')">Click to see the matrix of movie ratings.</button>
+<div id="ex4" class="example" style="display:none">
+
+My roommate Marie and I went to see *Wonder Woman*.  She rated it as 8 out of 10, and I rated it as 4 out of 10.  Later, we watched the movie *Suicide Squad*.  She gave it a 3 out of 10, and I gave it a 1 out of 10.
+
+
+$$M = \left(\matrix{{\bf a} \\  \bf{b}} \right) = \left( \matrix{a_1 & a_2 \\ b_1 & b_2} \right) = \left( \matrix{8 & 3 \\ 4 & 1} \right)$$
+
+</div>
+
+
+
+
+## Matrix multiplication {-}
+
+[Whiteboard]
+
+```{r}
+M = rbind(a,b)
+M
+
+H = matrix(c(1,2,3,4), c(2,2))
+H
+
+M*H
+M %*% H
+H %*% M
+
+```
+
+<button onclick="example('w2')"> !! WARNING !!</button>
+<div id="w2" class="alert" style="display:none">
+Not all matrices can be multiplied - the inner dimensions must line up!
+</div>
+
+<button onclick="example('ex_dim')"> Example </button>
+<div id="ex_dim" class="example" style="display:none">
+Suppose we have the following matrices with the given dimensions: A is a 2 x 20 matrix, C is 320 x 5, F
+is 156 x 1, B is 20 x 320, E is 14 x 156, G is 1 x 25, and H is 25 x 2, D is 5 x 14. 
+
+Find the dimension of the matrix resulting from the following product: ABCDEFGH.
+</div>
+
+
+## Trace, Determinant, Inverse {-}
+
+The **trace** of a matrix is the sum of its diagonal elements:
+
+```{r}
+sum(diag(M))
+```
+
+The **determinant** of a matrix is a measure of (in some sense) its ``size". It is found by subtracting the off-diagonal elements from the diagonal elements. 
+
+[Whiteboard]
+
+```{r}
+det(M)
+```
+
+* If the determinant of a matrix is not a negative number, we call it *non-negative definite*.
+* If the determinant of a matrix is not a negative number or zero, we call it *positive definite*.
+
+The **inverse** of a matrix is what we can multiply it by to get the identity matrix:
+
+$$ {\bf A}^{-1} {\bf A} = {\bf I}$$
+
+[Whiteboard]
+
+```{r}
+solve(M)
+```
+
+<button onclick="example('sqmat')"> !! WARNING !!</button>
+<div id="sqmat" class="alert" style="display:none">
+Only square matrices have an inverse!  (why?)
+</div>
+
+## Eigenvalues and Singular Values {-}
+
+The **eigenvalues** of a **square matrix** are a set of up to $n$ scalars that characterize the matrix in a few mathematically important ways.  We will see more interpretations of these later.  For now, we will practice calculating them.
+
+[Whiteboard]
+
+```{r}
+eigen(M)
+```
+
+* The number of nonzero eigenvalues of a matrix is called the *rank* of the matrix.
+* The *sum* of the eigenvalues is the equal to the *trace* of the matrix.
+* The *product* of the eigenvalues is equal to the *determinant* of the matrix.
+
+```{r}
+sum(eigen(M)$values)
+sum(diag(M))
+prod(eigen(M)$values)
+det(M)
+```
+
+
+<button onclick="example('w2')"> Quick Quiz </button>
+<div id="w2" class="example" style="display:none">
+Is M positive definite?  Non-negative definite?
+</div>
+
+
+The **singular values** of a matrix are a set of up to $m$ or $n$ scalars that characterize the matrix in a few mathematically important ways. 
+
+We find the singular values by taking the square root of the eigenvalues of the "squared" matrix:
+
+$$ \text{sing. vals. of } {\bf A} = \sqrt{ \text{eigen}( {\bf A}' {\bf A}) }$$
+
+[Whiteboard]
+
+**Important fact** Every matrix $A$ can be *decomposed* into a diagonal matrix $D$ of its singular values, plus two extra matrices:
+
+$$ {\bf A} = {\bf U} {\bf D} {\bf V}'$$
+
+(You will not be asked to find this decomposition by hand.)
+
+```{r}
+svd(M)
+```
+
+
+## Summary Statistics {-}
+
+So, how do all these matrix skills fit in to the world of statistics?
+
+We typically think of data as being a collection of *samples* from *variables*.  Suppose we have *n* samples and *m* variables; then, we have an $n \times m$ matrix of data.
+
+
+<button onclick="example('dims')"> ??? </button>
+<div id="dims" class="q" style="display:none">
+Wait... n by m or m by n???
+</div>
+
+For multivariate data, we can use matrix algebra on our data matrix to find important summaries and descpritions.
+
+### Means of Vectors {-}
+
+Recall from univariate statistics that the *sample mean* of some samples $x_1, ..., x_n$ is 
+
+$$ \bar{x} = \frac{x_1 + x_2 + ... + x_n}{n} $$
+
+If we want, we can represent our data as a vector, and then find the mean via matrix algebra!
+
+$$ {\bf x} = (x_1, x_2, ..., x_n)' $$
+
+$$ \bar{x} = {\bf x}'{\bf 1}*(1/n) $$
+
+```{r}
+eric <- c(5, 9)
+
+(t(eric) %*% c(1,1))/2
+
+```
+
+
+### Vectors of Means {-}
+
+More importantly, we might be interested in the means of many different variables, across samples.
+
+The **mean vector** is the $m \times 1$ vector of **column** means.
+
+$$ {\bf \bar{y}} = \left( \matrix{ \bar{y}_{\cdot 1} \\ \vdots \\ \bar{y}_{\cdot m}}\right) $$
+
+[whiteboard]
+
+```{r}
+M <- rbind(M, eric)
+
+colMeans(M)
+```
+
+
+### Covariance and correlation matrices {-}
+
+Recall from univariate statistics that the **variance** of a variable is its *spread* and the **covariance** of two random variables is their relationship.
+
+$$s_x = \frac{1}{n-1}\sum_{i = 1}^n (x_i - \bar{x})^2$$
+$$s_{xy} = \frac{1}{n-1} \sum_{i = 1}^n (x_i - \bar{x})(y_i - \bar{y})$$
+
+```{r}
+a
+b
+eric
+
+a - mean(a)
+b - mean(b)
+eric - mean(eric)
+
+cov(a, b)
+cov(b, eric)
+
+```
+
+
+[Whiteboard]
+
+The **covariance matrix** is the $m \times m$ matrix containing all possible variances and covariances of a set of variables.
+
+$$ \Sigma = \left( \matrix{ \sigma^2_{1} & \sigma_{12} & \ldots & \sigma_{1m} \\  & \vdots & \vdots &  \\ \sigma_{m1} & \sigma_{m2} & \ldots & \sigma^2_{m} } \right) $$
+
+[whiteboard]
+
+```{r}
+cov(M)
+```
+
+<button onclick="example('w5')"> Fun Fact </button>
+<div id="w5" class="alert" style="display:none">
+Covariance matrices are always non-negative definite.  (why?)
+</div>
+
+<button onclick="example('det0')"> Quick Quiz </button>
+<div id="det0" class="example" style="display:none">
+What does it mean if the determinant of a covariance matrix is 0?
+</div>
+
+Recall from univariate statistics that the **correlation** is the *covariance* of two variables divided by the two *standard deviations*
+
+```{r}
+cov(a, b)
+cov(b, eric)
+
+sd(a)
+sd(b)
+sd(eric)
+
+cor(a, b)
+cor(b, eric)
+```
+
+
+
+The **correlation matrix** is the $m \times m$ matrix containing all correlations.
+
+[whiteboard]
+
+```{r}
+cor(M)
+```
+
+
+<button onclick="example('w6')"> Challenge </button>
+<div id="w6" class="q" style="display:none">
+Write the correlation matrix as a matrix multiplication. 
+</div>
+
+### Measures of Dispersion {-}
+
+We have two overall summaries for the "dispersion", or spread, of a set of variables:
+
+The **total variance** is the sum of the variances of each variable.  In matrix algebra speak, this is the
+
+<button onclick="example('tr')"> __ </button>
+<div id="tr" class="q" style="display:none">
+trace
+</div>
+of the matrix.
+
+The **generalized variance** is the joint spread, i.e., the variances balanced by the covariances.  In matrix algebra, this is the
+
+<button onclick="example('det')"> __ </button>
+<div id="det" class="q" style="display:none">
+determinant
+</div>
+
+of the matrix.

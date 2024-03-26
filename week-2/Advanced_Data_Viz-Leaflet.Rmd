@@ -1,0 +1,161 @@
+---
+title: "Week 2:  Creating Maps with the Leaflet Package"
+author: "Stat 431"
+output:
+  prettydoc::html_pretty:
+    theme: tactile
+    highlight: github
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+source("./Scripts/window_dressing.R")
+quiz_url <- "https://canvas.calpoly.edu/courses/16654/quizzes/11738"
+library(tidyverse)
+library(flair)
+library(leaflet)
+```
+
+```{css, echo = FALSE}
+img {
+  vertical-align:middle
+}
+
+body {
+  text-shadow:none;
+}
+
+
+```
+
+
+```{r, results = "asis", echo = FALSE}
+make_summary_table(vid_time = "37 min", 
+                   reading_time = "15 min", 
+                   work_time = "60 min", 
+                   canvas_activities = 3)
+```
+
+```{r, results = "asis", echo = FALSE}
+extra_rec("")
+```
+
+* Greg Sward has a pretty good series of videos on [leaflet in R](https://www.youtube.com/channel/UCVvv6HyBo9pg5-URPeJPQEw/search?query=leaflet) - the entire series is longer than we can fit as required viewing, but they are great tutorials!
+* Abhinav Agrawal also has a good [beginner series](https://www.youtube.com/watch?v=ktWjjAlAKtE&list=PL6wLL_RojB5y8uL3uuIMnJ6JoTIFywQ-r&index=1)
+* Don't forget about the [Data-to-Viz Website](https://www.data-to-viz.com/)
+
+
+## Creating Maps
+
+Maps are fantastic and complicated all at the same time! 
+
+Maps are some of the richest visualizations around because they come with data built into them. That is, on top of whatever data you're going to plot you are also probably going to view terrain, roads, state/country borders, city names or a host of other information that come with our geography.
+
+This implicit richness only adds to challenge of creating a good map. Observe the following recent tweet for a silly example of how maps can be...difficult.
+
+[Ah maps...](https://twitter.com/W_R_Chase/status/1249077859525812226?s=20)
+
+And there is no shortage of map data visualizations on the web, but all too often this is what we end up with:
+
+![](Images/xkcdheatmap.png)
+
+
+```{r, results = "asis", echo = FALSE}
+req_vid("Introductory Series to Leaflet in R (6 Videos)", url = 'https://www.youtube.com/watch?v=6Uz5KBZ8V5E', 
+        embed = '<iframe width="400" height="225" style="width: 400px; height: 225px;" src="https://www.youtube.com/embed/6Uz5KBZ8V5E" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>')
+```
+
+Be sure to watch all 6 videos in this series.
+
+```{r, results = "asis", echo = FALSE}
+checkin("Creating a Base Map")
+```
+
+a) Is running just the leaflet() function enough to produce a map?
+
+* Yes
+* No
+
+b) To plot data points on a leaflet map, we should probably use which function?
+
+* addTiles()
+* addMarkers()
+* addProviderTiles()
+* addPolygons()
+
+```{r, results = "asis", echo = FALSE}
+canvas_task(quiz_url)
+```
+
+## More on the leaflet package
+
+The leaflet package is actually extremely rich and can basically enable (interactive) map visualizations as complex as you can imagine. Take some time to peruse the site for the leaflet R package:
+
+![](Images/LeafletLandingPage.PNG)
+
+```{r, results = "asis", echo = FALSE}
+req_read("Leaflet in R", url = "https://rstudio.github.io/leaflet/")
+```
+
+```{r, results = "asis", echo = FALSE}
+checkin("Exploring Leaflet in R")
+```
+
+a) Briefly explain what choropleths are useful for and how they're different from the other ways in which leaflet can display data?
+
+
+b) What do the names of your plotted data columns have to be?
+
+* x; y
+* leafletx; leaflety
+* lat/latitude; lon/lng/long/longitude
+* Anything as long as you tell the addMarkers() function correctly
+
+c) If you were to think of latitude and longitude as coordinates in the cartesian coordinate system, then...
+
+* latitude is on the horizontal axis and longitude is on the vertical
+* latitude is on the vertical axis and longitude is on the horizontal
+
+```{r, results = "asis", echo = FALSE}
+canvas_task(quiz_url)
+```
+
+## Practice With Leaflet
+
+
+```{r, include = FALSE}
+space <- read_csv("space.csv")
+```
+
+```{r, warning = FALSE, message = FALSE}
+helmet_icon <- makeIcon(iconUrl = "http://www.clker.com/cliparts/l/R/b/J/X/D/astronaut-helmet-md.png",
+    iconWidth = 15, iconHeight = 15)
+# MAP
+leaflet() %>%
+  addTiles() %>%
+  addMarkers(lng = jitter(space$Longitude, factor = 2), lat = jitter(space$Latitude,
+    factor = 2), icon = helmet_icon, popup = paste(space$Name, "<br>", "Birth Place: ",
+    space$Birth.Place, "<br>", "Birthday: ", space$Birth.Date, "<br>", "Gender: ",
+    space$Gender, "<br>", "Status: ", space$Status), label = paste(space$Name))
+```
+```{r, results = "asis", echo = FALSE}
+checkin("Dissecting the Map")
+```
+
+The above map plots data on NASA astronauts!
+
+a) The graphic for each marker is a little astronaut helmet. How cute! This image was used via...
+
+* a URL pointing to it on the web.
+* a downloaded image file.
+
+b) The "popup" argument specifies what you see when you ______, while the "label" argument specifies what you see when you ______.
+
+* hover; click
+* zoom-in; zoom-out
+* click; hover
+* squint your eyes; look normally
+
+```{r, results = "asis", echo = FALSE}
+canvas_task(quiz_url)
+```
