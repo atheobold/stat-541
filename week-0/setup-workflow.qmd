@@ -23,19 +23,19 @@ This document outlines our suggestions for getting going with your workflow. Non
 
 ## Updating R
 
-Check your version of R. (This shows up in the console when you first open R or RStudio.)  Ideally, it should be 4.3.1. If this is the case, you are golden.
+Check your version of R. (This shows up in the console when you first open R or RStudio.) Ideally, it should be 4.3.3 (Angel Food Cake). If this is the case, you are golden.
 
 The easiest way to update R is to simply [redownload it](https://www.r-project.org/) and then close and re-open RStudio.
 
-:::{.callout-warning}
-# Multiple Versions of R 
+::: callout-warning
+# Multiple Versions of R
 
-If you are working on a PC, your program files will keep multiple versions of R. Even worse, you will sometimes install the latest version of R and your RStudio will still say that you didn't update R. Be sure when you update R to delete previous versions that you don't want RStudio to mistakenly use! 
+If you are working on a PC, your program files will keep multiple versions of R. Even worse, you will sometimes install the latest version of R and your RStudio will still say that you didn't update R. Be sure when you update R to delete previous versions that you don't want RStudio to mistakenly use!
 :::
 
-#### Troubleshooting 
+#### Troubleshooting
 
-If your computer cannot install the most recent version of R, please contact Dr. Theobold! 
+If your computer cannot install the most recent version of R, please contact Dr. Theobold!
 
 <!-- First, identify which version of OSx you are running.  [How-to](https://support.apple.com/en-us/HT201260) -->
 
@@ -51,10 +51,10 @@ RStudio can be downloaded [here](https://rstudio.com/products/rstudio/download/)
 
 The most recent version of RStudio is 2023.12.1+402. You can check if you are using the most recent version of RStudio by:
 
-- Opening RStudio
-- Clicking on "Help"
-- Selecting "Check for Updates"
-- Choosing "Quit and Download" if there is an update available
+-   Opening RStudio
+-   Clicking on "Help"
+-   Selecting "Check for Updates"
+-   Choosing "Quit and Download" if there is an update available
 
 ## Installing / Updating the `tidyverse`
 
@@ -69,7 +69,7 @@ If you **have not** used the `tidyverse` before, type the following into your co
 install.packages("tidyverse")
 ```
 
-If you **have** used the `tidyverse` before, you only need to update packages.  Type the following into your console:
+If you **have** used the `tidyverse` before, you only need to update packages. Type the following into your console:
 
 ```{r}
 #| eval: false
@@ -93,18 +93,18 @@ First, you should not save your environment when you close RStudio:
 
 ### Code Chunk Output
 
-Second, make a deliberate choice about where your chunks will evaluate when you run that.  That is, if you reference files, are you referencing them relative to your *Project*, or relative to your *Quarto Document* (which might live in a subfolder or even outside the project).
+Second, make a deliberate choice about where your chunks will evaluate when you run that. That is, if you reference files, are you referencing them relative to your *Project*, or relative to your *Quarto Document* (which might live in a subfolder or even outside the project).
 
 ![](../images/directory_option.png)
 
 ## Project-based workflow
 
-We **strongly** recommend that you adopt a project-oriented approach to your R work.  That is, you should never open R or RStudio directly; you should only open the project you intend to work on.
+We **strongly** recommend that you adopt a project-oriented approach to your R work. That is, you should never open R or RStudio directly; you should only open the project you intend to work on.
 
 [This resource](https://rstats.wtf/project-oriented-workflow.html) provides an excellent explanation of why and how to use projects.
 
 ## Using GitHub
 
-This course will require some basic use of GitHub.  You may find that you want to incorporate it more deeply into your R experience. 
+This course will require some basic use of GitHub. You may find that you want to incorporate it more deeply into your R experience.
 
 [This resource](https://happygitwithr.com/) can help you integrate R and GitHub more fully, if you so choose.
