@@ -22,7 +22,6 @@ execute:
 #| include: false
 
 source("../scripts/window_dressing.R")
-quiz_url <- "https://canvas.calpoly.edu/courses/16654/quizzes/11019"
 
 library(tidyverse)
 library(flair)
@@ -49,18 +48,17 @@ make_summary_table(vid_time = "6 min",
 extra_rec("")
 ```
 
-* [RStudio Cheatsheets](https://rstudio.com/resources/cheatsheets/) are a great shortcut resource to have on hand, to remind you of which functions exist and what they do.
-* The [R for Data Science Textbook](https://r4ds.had.co.nz/) is free online.
-* [RStudio's Primers](https://rstudio.cloud/learn/primers) are interactive lessons on the basics of R; these would be a great way to refresh your knowledge.
+-   [RStudio Cheatsheets](https://rstudio.com/resources/cheatsheets/) are a great shortcut resource to have on hand, to remind you of which functions exist and what they do.
+-   The [R for Data Science Textbook](https://r4ds.had.co.nz/) is free online.
+-   [RStudio's Primers](https://rstudio.cloud/learn/primers) are interactive lessons on the basics of R; these would be a great way to refresh your knowledge.
 
 ## The Grammar of Graphics
 
 You should feel comfortable with:
 
-* Knowing what goes into an aesthetic (`aes()`) versus the geometry (`geom_*()`)
+-   Knowing what goes into an aesthetic (`aes()`) versus the geometry (`geom_*()`)
 
-* Identifying these elements of existing plots
-
+-   Identifying these elements of existing plots
 
 ```{r}
 #| results: asis
@@ -96,16 +94,15 @@ Identify the elements of the following plot as
 (g) Only even ages are labelled
 (h) Stick figure people are sliding down the line
 
-
 ## Using ggplot2
 
 You should be comfortable with:
 
-* using the "big 5" geometries
+-   using the "big 5" geometries
 
-* changing optional arguments.
+-   changing optional arguments.
 
-* faceting
+-   faceting
 
 ```{r}
 #| results: asis
@@ -114,7 +111,6 @@ You should be comfortable with:
 
 req_read("RStudio Primer: Data Visualization", url = "https://posit.cloud/learn/recipes", type = "Recommended")
 ```
-
 
 ```{r}
 #| results: asis
@@ -142,8 +138,8 @@ Fill in the six (6) blanks to make the following plot:
 
 starwars %>%
   ____(species == "Human") %>%
-  ggplot(mapping = aes(____ = height, ____ = mass, ____ = gender)) + 
-  geom_point(____ = 17) +
+  ggplot(mapping = aes(____ = height, y = mass, ____ = gender)) + 
+  geom_[____](____ = 17) +
   ____(x = "Height (cm)", 
        y = "Mass (kg)", 
        color = "Gender Expression"
