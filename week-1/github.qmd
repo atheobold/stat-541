@@ -1,5 +1,5 @@
 ---
-title: "Week 1:  Setting up Git and GitHub"
+title: "Week 1: Setting up Git and GitHub"
 format: 
   html: 
     fontsize: 1em
@@ -17,36 +17,32 @@ execute:
   message: false
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-source("./Scripts/window_dressing.R")
-quiz_url <- "https://canvas.calpoly.edu/courses/16654/quizzes/9199"
+```{r}
+#| label: set-up
+#| include: false
+
+source("../scripts/window_dressing.R")
 ```
 
-```{css, echo = FALSE}
-img {
-  vertical-align:middle;
-}
-
-body {
-  text-shadow:none;
-}
-
-```
+All your assignments for Stat 541 will be received and submitted via **GitHub**.  This page will take you through some practice activities, so you can get used to everything.
 
 
+```{r}
+#| label: summary-table-of-activities
+#| echo: false
+#| results: asis
 
-All your assignments for Stat 431 will be recieved and submitted via **GitHub**.  This page will take you through some practice activities, so you can get used to everything.
-
-
-```{r, results = "asis", echo = FALSE}
 make_summary_table(vid_time = "45 min", 
                    reading_time = "0 min", 
                    work_time = "30-90 min", 
                    canvas_activities = 5)
 ```
 
-```{r, results = "asis", echo = FALSE}
+```{r}
+#| echo: false
+#| results: asis
+#| label: extra-resources
+
 extra_rec("Git and GitHub")
 ```
 
@@ -55,32 +51,33 @@ extra_rec("Git and GitHub")
 
 ## Introduction to Git and GitHub
 
-```{r, results = "asis", echo = FALSE}
-req_vid("Intro to Git and GitHub")
+```{r}
+#| echo: false
+#| results: asis
+#| label: required-video-intro-to-git-and-github
+
+req_vid("Intro to Git and GitHub", url = "https://www.youtube.com/embed/BCQHnlnPusY", embed = FALSE)
 ```
 
+```{r}
+#| echo: false
+#| results: asis
+#| label: check-in-github-account
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/BCQHnlnPusY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br><br>
-
-
-```{r, results = "asis", echo = FALSE}
 checkin("Make a GitHub Account")
 ```
 
 Create an account on [GitHub.com](GitHub.com), if you have not already.
 
-Ideally, your username will be related to your real name, e.g. "kbodwin" rather than "SuperKrazy2000".  However, this is not required; choose whatever username you prefer.  In particular, if you want to avoid making your affiliation with this course public in any way, you may want to anonymize your account.
+Ideally, your username will be related to your real name, e.g. "atheobold" rather than "SuperKrazy2000".  However, this is not required; choose whatever username you prefer.  In particular, if you want to avoid making your affiliation with this course public in any way, you may want to anonymize your account.
 
+Make sure that your `@calpoly.edu` email is linked to your account.  (This is under the `Email` section of `Settings` on GitHub.com.  You do not need to make your `@calpoly` email your primary email, nor do you need to make it publicly view-able.)
 
-Make sure that your `@calpoly.edu` email is linked to your account.  (This is under the `Email` section of `Settings` on GitHub.com.  You do not need to make your `@calpoly` email your primary email, nor do you need to make it publicly viewable.)
+```{r}
+#| echo: false
+#| results: asis
+#| label: check-in-repository
 
- 
-```{r, results = "asis", echo = FALSE}
-canvas_task(quiz_url)
-```
-
-
-```{r, results = "asis", echo = FALSE}
 checkin("Make a repository")
 ```
 
@@ -88,91 +85,96 @@ Create a **private** repository called "About Me".
 
 Create a new text file.  In it, answer the following questions:
 
-1. What is your year and major?
-2. What are you most excited to learn in Stat 431?
-
+- What is your year and major?
+- What are you most excited to learn in Stat 541?
 
 Take a screenshot of your repository.  It should look similar to 9:43 of the video.
 
-```{r, results = "asis", echo = FALSE}
+```{r}
+#| echo: false
+#| results: asis
+#| label: warning-personal-info-in-screenshots
+
 warning_sign("This class will sometimes ask you to take screenshots.  Please make sure that no private information is displayed in the image before you upload it to Canvas!")
-```
- 
-```{r, results = "asis", echo = FALSE}
-canvas_task(quiz_url)
 ```
 
 ## Branches and Pull Requests
 
-```{r, results = "asis", echo = FALSE}
-req_vid("Branching")
+```{r}
+#| echo: false
+#| results: asis
+#| label: required-video-branching
+
+req_vid("Branching", url = "https://www.youtube.com/embed/oPpnCh7InLY", embed = FALSE)
 ```
 
+```{r}
+#| echo: false
+#| results: asis
+#| label: check-in-making-a-branch
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/oPpnCh7InLY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br><br>
-
-
-```{r, results = "asis", echo = FALSE}
 checkin("Make a branch and pull request")
 ```
 
-Create a new branch of your "About Me" repository.  Name this branch after your favorite animal.
+1. Create a new branch of your "About Me" repository.  Name this branch after your favorite animal.
 
-In this branch, make a small change to your text file.
+2. In this branch, make a small change to your text file.
 
-Create a **Pull Request** to your `master` branch from your new branch.
+3. Create a **Pull Request** to your `master` branch from your new branch.
 
-Take a screen shot of your completed pull request.  It should look like 8:14 of the video.
- 
-```{r, results = "asis", echo = FALSE}
-canvas_task(quiz_url)
-```
+4. Take a screen shot of your completed pull request.  It should look like 8:14 of the video.
 
 ## Forks and Pull Requests
 
-```{r, results = "asis", echo = FALSE}
-req_vid("Forks and pull requests")
+```{r}
+#| echo: false
+#| results: asis
+#| label: required-video-forks-and-pull-requests
+
+req_vid("Forks and pull requests", url = "https://www.youtube.com/embed/_NrSWLQsDL4", embed = FALSE)
 ```
 
+```{r}
+#| echo: false
+#| results: asis
+#| label: check-in-fork-and-pull
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/_NrSWLQsDL4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br><br>
-
-```{r, results = "asis", echo = FALSE}
 checkin("Fork and pull request someone else's repository")
 ```
 
-Navigate to the [Week 0 Repository](https://github.com/Cal-Poly-Advanced-R/Week_0) for this course.
+1. Navigate to the [Week 0 Repository](https://github.com/Cal-Poly-Advanced-R/Week_0) for this course.
 
-**Fork** the repository into your own account.
+2. **Fork** the repository into your own account.
 
-Edit the poem to add a new line.  The new line should be two sentences or phrases that rhyme.  See Dr. Glanz's contribution for an example.
+3. Edit the poem to add a new line.  The new line should be two sentences or phrases that rhyme. See Dr. Theobold's contribution for an example.
 
-Create a **Pull Request** to add your line to the group's poem.  Make sure you are pull requesting the original repository owned by the *Cal-Poly-Advanced-R* account, not pull requesting your own forked copy.
+<!-- Update the date for the txt file in the repo! -->
 
- Once your pull request has been accepted, take a screenshot of that page.  It should look like 11:42 of the video.  
- 
-```{r, results = "asis", echo = FALSE}
-canvas_task(quiz_url)
-```
+4. Create a **Pull Request** to add your line to the group's poem. Make sure you are pull requesting the original repository owned by the *Cal-Poly-Advanced-R* account, not pull requesting your own forked copy.
 
+5. Once your pull request has been accepted, take a screenshot of that page.  It should look like 11:42 of the video.  
 
 ## Issues
 
-```{r, results = "asis", echo = FALSE}
-req_vid("Issues and Markdown")
+```{r}
+#| echo: false
+#| results: asis
+#| label: required-video-issues
+
+req_vid("Issues and Markdown", url = "https://www.youtube.com/embed/WMykv2ZMyEQ", embed = FALSE)
 ```
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/WMykv2ZMyEQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br><br>
+```{r}
+#| echo: false
+#| results: asis
+#| label: check-in-make-an-issue
 
-```{r, results = "asis", echo = FALSE}
 checkin("Comment on an Issue")
 ```
 
-Find the Issue that Dr. Bodwin created in the Week 0 Repository.
+1. Find the Issue that Dr. Theobold created in the Week 0 Repository.
 
-Reply to the question somewhere below.  Use at least one Markdown styling trick in your reply.
+2. Reply to the question somewhere below. 
 
- 
-```{r, results = "asis", echo = FALSE}
-canvas_task(quiz_url)
-```
+3. Use *at least one* Markdown styling trick in your reply.
+
