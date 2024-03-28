@@ -26,7 +26,6 @@ library(tidyverse)
 library(palmerpenguins)
 ```
 
-
 (Since Week 1 consists of review of Stat 331 material, you should be able to skip some of the required readings and viewings. It is your responsibility to decide which areas you need to review before diving into Stat 541.)
 
 ```{r}
@@ -71,7 +70,7 @@ You should feel comfortable with:
 #| echo: false
 #| label: required-video-readr
 
-req_vid("readr and readxl", type = "Required", url = "https://www.youtube.com/embed/MTljwff_-2A")
+req_vid("readr and readxl", type = "Required", url = "https://www.youtube.com/embed/MTljwff_-2A", embed = FALSE)
 ```
 
 ```{r}
@@ -97,7 +96,7 @@ You should feel comfortable with:
 #| echo: false
 #| label: required-video-pipe
 
-req_vid("Data Frames and the Pipe", url="https://www.youtube.com/embed/jOd65mR1zfw")
+req_vid("Data Frames and the Pipe", url="https://www.youtube.com/embed/jOd65mR1zfw", embed = FALSE)
 ```
 
 ```{r}
@@ -149,7 +148,7 @@ req_read("R4DS Chapter 3: Data Transformation", url = "https://r4ds.hadley.nz/da
 #| echo: false
 #| label: required-video-dplyr0-short
 
-req_vid("dplyr (short)", url="https://www.youtube.com/embed/BaFkbNOaof8")
+req_vid("dplyr (short)", url="https://www.youtube.com/embed/BaFkbNOaof8", embed = FALSE)
 ```
 
 ```{r}
@@ -157,7 +156,7 @@ req_vid("dplyr (short)", url="https://www.youtube.com/embed/BaFkbNOaof8")
 #| echo: false
 #| label: recommended-video-dplyr-long
 
-req_vid("dplyr (long)", url = "https://www.youtube.com/embed/Zc_ufg4uW4U", type = "Recommended")
+req_vid("dplyr (long)", url = "https://www.youtube.com/embed/Zc_ufg4uW4U", type = "Recommended", embed = FALSE)
 ```
 
 ```{r}
@@ -288,7 +287,6 @@ penguins |>
   summarize(mean(body_mass_g))
 ```
 
-
 ## Tidy Data and Combining Datasets
 
 You should feel comfortable with:
@@ -316,17 +314,15 @@ req_read("R4DS Chapter 5: Data Tidying", url = "https://r4ds.hadley.nz/data-tidy
 #| echo: false
 #| label: recommended-video-tidying
 
-req_vid("Tidy Data", url = "https://www.youtube.com/embed/1ELALQlO-yM", type = "Recommended")
+req_vid("Tidy Data", url = "https://www.youtube.com/embed/1ELALQlO-yM", type = "Recommended", embed = FALSE)
 ```
-
-(Note: This video uses `spread()` and `gather()`. These functions are now replaced with `pivot_longer()` and `pivot_wider()`.)
 
 ```{r}
 #| results: asis
 #| echo: false
 #| label: required-video-joining
 
-req_vid("Binding and Joining", url = "https://www.youtube.com/embed/AuBgYDCg1Cg", type = "Recommended")
+req_vid("Binding and Joining", url = "https://www.youtube.com/embed/AuBgYDCg1Cg", type = "Recommended", embed = FALSE)
 ```
 
 ```{r}
@@ -374,4 +370,3 @@ us_arrests %>%
                names_to = "Crime",
                values_to = "Rate")
 ```
-

@@ -52,6 +52,8 @@ extra_rec("")
 -   The [R for Data Science Textbook](https://r4ds.had.co.nz/) is free online.
 -   [RStudio's Primers](https://rstudio.cloud/learn/primers) are interactive lessons on the basics of R; these would be a great way to refresh your knowledge.
 
+</br>
+
 ## The Grammar of Graphics
 
 You should feel comfortable with:
@@ -65,7 +67,7 @@ You should feel comfortable with:
 #| echo: false
 #| label: required-video
 
-req_vid("Grammar of Graphics with ggplot2", type = "Required", url = "https://www.youtube.com/embed/kepKM7Z2O54")
+req_vid("Grammar of Graphics with ggplot2", type = "Required", url = "https://www.youtube.com/embed/kepKM7Z2O54", embed = FALSE)
 ```
 
 ```{r}
