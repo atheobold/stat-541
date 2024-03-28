@@ -146,7 +146,7 @@ checkin("Fork and pull request someone else's repository")
 
 2. **Fork** the repository into your own account.
 
-3. Edit the poem to add a new line.  The new line should be two sentences or phrases that rhyme. See Dr. Theobold's contribution for an example.
+3. Edit the poem to add a new line.  The new line should be **two** sentences or phrases that rhyme. See [Scott's contribution](https://github.com/Cal-Poly-Advanced-R/Week_0/pull/75/files) for an example.
 
 <!-- Update the date for the txt file in the repo! -->
 
