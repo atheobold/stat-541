@@ -1,49 +1,53 @@
 ---
 title: "Week 2:  Creating Maps with the Leaflet Package"
-author: "Stat 431"
-output:
-  prettydoc::html_pretty:
-    theme: tactile
-    highlight: github
+format: 
+  html: 
+    fontsize: 1em
+    mainfont: sans-serif
+    number-sections: true
+    number-depth: 2
+    section-divs: true
+    code-block-bg: "#76b5c5"
+    highlight-style: monochrome
+embed-resources: true
+editor: visual
+execute: 
+  echo: false
+  warning: false
+  message: false
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-source("./Scripts/window_dressing.R")
-quiz_url <- "https://canvas.calpoly.edu/courses/16654/quizzes/11738"
+```{r}
+#| label: set-up
+#| include: false
+
+source("../scripts/window_dressing.R")
+
 library(tidyverse)
 library(flair)
 library(leaflet)
 ```
 
-```{css, echo = FALSE}
-img {
-  vertical-align:middle
-}
+```{r}
+#| label: summary-table-of-activities
+#| results: asis
 
-body {
-  text-shadow:none;
-}
-
-
-```
-
-
-```{r, results = "asis", echo = FALSE}
 make_summary_table(vid_time = "37 min", 
                    reading_time = "15 min", 
                    work_time = "60 min", 
                    canvas_activities = 3)
 ```
 
-```{r, results = "asis", echo = FALSE}
+```{r}
+#| label: extra-resources
+#| results: asis
+
 extra_rec("")
 ```
 
 * Greg Sward has a pretty good series of videos on [leaflet in R](https://www.youtube.com/channel/UCVvv6HyBo9pg5-URPeJPQEw/search?query=leaflet) - the entire series is longer than we can fit as required viewing, but they are great tutorials!
 * Abhinav Agrawal also has a good [beginner series](https://www.youtube.com/watch?v=ktWjjAlAKtE&list=PL6wLL_RojB5y8uL3uuIMnJ6JoTIFywQ-r&index=1)
 * Don't forget about the [Data-to-Viz Website](https://www.data-to-viz.com/)
-
 
 ## Creating Maps
 
@@ -57,77 +61,89 @@ This implicit richness only adds to challenge of creating a good map. Observe th
 
 And there is no shortage of map data visualizations on the web, but all too often this is what we end up with:
 
-![](Images/xkcdheatmap.png)
+![](../images/xkcdheatmap.png)
 
+```{r}
+#| label: required-video-introduction-to-leaflet
+#| results: asis
 
-```{r, results = "asis", echo = FALSE}
 req_vid("Introductory Series to Leaflet in R (6 Videos)", url = 'https://www.youtube.com/watch?v=6Uz5KBZ8V5E', 
         embed = '<iframe width="400" height="225" style="width: 400px; height: 225px;" src="https://www.youtube.com/embed/6Uz5KBZ8V5E" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>')
 ```
 
+:::{.callout-caution}
 Be sure to watch all 6 videos in this series.
+:::
 
-```{r, results = "asis", echo = FALSE}
+```{r}
+#| label: check-in-base-map
+#| results: asis
+
 checkin("Creating a Base Map")
 ```
 
-a) Is running just the leaflet() function enough to produce a map?
+1. Is running just the `leaflet()` function enough to produce a map?
 
 * Yes
 * No
 
-b) To plot data points on a leaflet map, we should probably use which function?
+2. To plot data points on a leaflet map, we should probably use which function?
 
-* addTiles()
-* addMarkers()
-* addProviderTiles()
-* addPolygons()
-
-```{r, results = "asis", echo = FALSE}
-canvas_task(quiz_url)
-```
+* `addTiles()`
+* `addMarkers()`
+* `addProviderTiles()`
+* `addPolygons()`
 
 ## More on the leaflet package
 
 The leaflet package is actually extremely rich and can basically enable (interactive) map visualizations as complex as you can imagine. Take some time to peruse the site for the leaflet R package:
 
-![](Images/LeafletLandingPage.PNG)
+![](../images/LeafletLandingPage.PNG)
 
-```{r, results = "asis", echo = FALSE}
+```{r}
+#| label: required-reading-leaflet
+#| results: asis
+
 req_read("Leaflet in R", url = "https://rstudio.github.io/leaflet/")
 ```
 
-```{r, results = "asis", echo = FALSE}
+```{r}
+#| label: check-in-leaflet
+#| results: asis
+
 checkin("Exploring Leaflet in R")
 ```
 
-a) Briefly explain what choropleths are useful for and how they're different from the other ways in which leaflet can display data?
+3. What do the names of your plotted data columns have to be?
 
+* `x`; `y`
+* `leafletx`; `leaflety
+* `lat` / `latitude`; `lon`/ `longitude`
+* Anything as long as you tell the `addMarkers()` function correctly
 
-b) What do the names of your plotted data columns have to be?
-
-* x; y
-* leafletx; leaflety
-* lat/latitude; lon/lng/long/longitude
-* Anything as long as you tell the addMarkers() function correctly
-
-c) If you were to think of latitude and longitude as coordinates in the cartesian coordinate system, then...
+4. If you were to think of latitude and longitude as coordinates in the cartesian coordinate system, then...
 
 * latitude is on the horizontal axis and longitude is on the vertical
 * latitude is on the vertical axis and longitude is on the horizontal
 
-```{r, results = "asis", echo = FALSE}
-canvas_task(quiz_url)
-```
-
 ## Practice With Leaflet
 
+<!-- No clue where this dataset is... -->
 
-```{r, include = FALSE}
+```{r}
+#| label: space-data
+#| include: false
+#| eval: false
+
 space <- read_csv("space.csv")
 ```
 
-```{r, warning = FALSE, message = FALSE}
+```{r}
+#| label: map-of-astronauts
+#| warning: false
+#| message: false
+#| eval: false
+
 helmet_icon <- makeIcon(iconUrl = "http://www.clker.com/cliparts/l/R/b/J/X/D/astronaut-helmet-md.png",
     iconWidth = 15, iconHeight = 15)
 # MAP
@@ -138,24 +154,24 @@ leaflet() %>%
     space$Birth.Place, "<br>", "Birthday: ", space$Birth.Date, "<br>", "Gender: ",
     space$Gender, "<br>", "Status: ", space$Status), label = paste(space$Name))
 ```
-```{r, results = "asis", echo = FALSE}
+
+```{r}
+#| label: check-in-dissecting-the-map
+#| results: asis
+
 checkin("Dissecting the Map")
 ```
 
 The above map plots data on NASA astronauts!
 
-a) The graphic for each marker is a little astronaut helmet. How cute! This image was used via...
+5. The graphic for each marker is a little astronaut helmet. How cute! This image was used via...
 
 * a URL pointing to it on the web.
 * a downloaded image file.
 
-b) The "popup" argument specifies what you see when you ______, while the "label" argument specifies what you see when you ______.
+6. The "popup" argument specifies what you see when you ______, while the "label" argument specifies what you see when you ______.
 
 * hover; click
 * zoom-in; zoom-out
 * click; hover
 * squint your eyes; look normally
-
-```{r, results = "asis", echo = FALSE}
-canvas_task(quiz_url)
-```
