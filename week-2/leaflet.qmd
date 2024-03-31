@@ -24,7 +24,6 @@ execute:
 source("../scripts/window_dressing.R")
 
 library(tidyverse)
-library(flair)
 library(leaflet)
 ```
 
@@ -132,27 +131,33 @@ checkin("Exploring Leaflet in R")
 
 ```{r}
 #| label: space-data
-#| include: false
-#| eval: false
 
-space <- read_csv("space.csv")
+space <- read_csv(here::here("week-2", 
+                             "data",
+                             "space.csv")
+                  )
 ```
 
 ```{r}
 #| label: map-of-astronauts
 #| warning: false
 #| message: false
-#| eval: false
+#| echo: true
 
 helmet_icon <- makeIcon(iconUrl = "http://www.clker.com/cliparts/l/R/b/J/X/D/astronaut-helmet-md.png",
     iconWidth = 15, iconHeight = 15)
-# MAP
+
 leaflet() %>%
   addTiles() %>%
-  addMarkers(lng = jitter(space$Longitude, factor = 2), lat = jitter(space$Latitude,
-    factor = 2), icon = helmet_icon, popup = paste(space$Name, "<br>", "Birth Place: ",
-    space$Birth.Place, "<br>", "Birthday: ", space$Birth.Date, "<br>", "Gender: ",
-    space$Gender, "<br>", "Status: ", space$Status), label = paste(space$Name))
+  addMarkers(lng = jitter(space$longitude, 
+                          factor = 2), 
+             lat = jitter(space$latitude,
+                          factor = 2), 
+             icon = helmet_icon, 
+             popup = paste(space$Name, "<br>", 
+                           "Birth Place: ", space$Country, "<br"),
+             label = paste(space$Name)
+             )
 ```
 
 ```{r}
@@ -169,7 +174,7 @@ The above map plots data on NASA astronauts!
 * a URL pointing to it on the web.
 * a downloaded image file.
 
-6. The "popup" argument specifies what you see when you ______, while the "label" argument specifies what you see when you ______.
+6. The `popup` argument specifies what you see when you ______, while the `label` argument specifies what you see when you ______.
 
 * hover; click
 * zoom-in; zoom-out
