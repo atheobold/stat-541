@@ -29,7 +29,6 @@ library(lubridate)
 library(gganimate)
 ```
 
-
 ```{r}
 #| label: ocars-data-clean
 #| include: false
@@ -60,8 +59,8 @@ oscars <- oscars %>%
       ),
     Age_at_Award = interval(Birthdate, Date_of_award) / years(1),
     Award_Gender = case_when(
-      str_detect(award, "Actress") ~ "Female",
-      str_detect(award, "Actor") ~ "Male",
+      str_detect(award, "Actress") ~ "Woman",
+      str_detect(award, "Actor") ~ "Man",
       TRUE ~ "Ungendered"
     ),
     Decade_of_Award = round(year_of_award, digits = -1)
@@ -87,17 +86,16 @@ make_summary_table(vid_time = "21 min",
 extra_rec("")
 ```
 
-* Dave Robinson's [Tidy Tuesday Screencasts](https://www.youtube.com/user/safe4democracy/videos) show a master of Data Viz at work!
-* You can also search the [Tidy Tuesday hashtag on twitter](https://twitter.com/search?q=%23TidyTuesday&src=typeahead_click) to see some great examples of data manipulating and visualization
-* Don't forget about the [Data-to-Viz Website](https://www.data-to-viz.com/)
-* [The "dataisbeautiful" subreddit](https://www.reddit.com/r/dataisbeautiful/top/?t=all) shares many nice visualizations.
-*[This webinar](https://www.youtube.com/watch?v=0m4yywqNPVY), by ggplot contributor Thomas Lin Pedersen, is wonderful.  It's about 2 hours long - so more than we can fit in as required viewing - but if you want to become a `ggplot` master, watch this!
+-   Dave Robinson's [Tidy Tuesday Screencasts](https://www.youtube.com/user/safe4democracy/videos) show a master of Data Viz at work!
+-   You can also search the [Tidy Tuesday hashtag on twitter](https://twitter.com/search?q=%23TidyTuesday&src=typeahead_click) to see some great examples of data manipulating and visualization
+-   Don't forget about the [Data-to-Viz Website](https://www.data-to-viz.com/)
+-   [The "dataisbeautiful" subreddit](https://www.reddit.com/r/dataisbeautiful/top/?t=all) shares many nice visualizations. \*[This webinar](https://www.youtube.com/watch?v=0m4yywqNPVY), by ggplot contributor Thomas Lin Pedersen, is wonderful. It's about 2 hours long - so more than we can fit in as required viewing - but if you want to become a `ggplot` master, watch this!
 
 ## Custom Colors and Themes
 
 A huge part of making a compelling and convincing plot is your choice of color and layout.
 
-Your first video will take you through some great core principals of visualization.  Then your two short readings will show you the basics of manipulating colors and themes in `ggplot`.
+Your first video will take you through some great core principals of visualization. Then your two short readings will show you the basics of manipulating colors and themes in `ggplot`.
 
 ```{r}
 #| label: required-video-glamour-of-graphics
@@ -129,9 +127,9 @@ req_read("Themes", url = "http://www.sthda.com/english/wiki/ggplot2-themes-and-b
 extra_rec("")
 ```
 
-* The [`jcolors` package](https://jaredhuling.org/jcolors/) for color palettes
-* The [`ggthemer` package](https://www.shanelynn.ie/themes-and-colours-for-r-ggplots-with-ggthemr/) for setting universal themes.
-* [Make your own](https://emanuelaf.github.io/own-ggplot-theme.html) theme to use!
+-   The [`jcolors` package](https://jaredhuling.org/jcolors/) for color palettes
+-   The [`ggthemer` package](https://www.shanelynn.ie/themes-and-colours-for-r-ggplots-with-ggthemr/) for setting universal themes.
+-   [Make your own](https://emanuelaf.github.io/own-ggplot-theme.html) theme to use!
 
 ```{r}
 #| label: check-in-colors
@@ -140,12 +138,12 @@ extra_rec("")
 checkin("Custom Colors")
 ```
 
-1. Which of the functions below would you use to change the colors of the bars on the following plot?
+1.  Which of the functions below would you use to change the colors of the bars on the following plot?
 
-* `scale_color_continuous()`
-* `scale_color_discrete()`
-* `scale_fill_continuous()`
-* `scale_fill_discrete()`
+-   `scale_color_continuous()`
+-   `scale_color_discrete()`
+-   `scale_fill_continuous()`
+-   `scale_fill_discrete()`
 
 ```{r}
 #| label: oscars-plot
@@ -173,9 +171,13 @@ p
 checkin("Theme settings")
 ```
 
-2. Consider the plot in Question 1.  What change was made to it in each step below?  That is, what code would go inside the function `+ theme(          )` to produce the added change?
+2.  Consider the plot in Question 1. What change was made to it in each step below? That is, what code would go inside the function `+ theme(          )` to produce the added change?
 
-a) 
+```{=html}
+<!-- -->
+```
+a)  
+
 ```{r}
 #| label: theme-remove-legend
 
@@ -185,7 +187,8 @@ p +
 
 <!-- Deleted original b -->
 
-b)
+b)  
+
 ```{r}
 #| label: theme-grid-major
 p + 
@@ -199,13 +202,14 @@ p +
 checkin("Full Themes")
 ```
 
-3. Which built-in theme is each of the following plots?
+3.  Which built-in theme is each of the following plots?
 
-:::{.callout-tip}
+::: callout-tip
 Your answers should be in the form: `theme_whatever()`
 :::
 
-a) 
+a)  
+
 ```{r}
 #| label: theme-classic
 
@@ -214,7 +218,8 @@ p +
   theme(legend.position = "none")
 ```
 
-b) 
+b)  
+
 ```{r}
 #| label: theme-bw
 p + 
@@ -222,8 +227,8 @@ p +
   theme(legend.position = "none")
 ```
 
+c)  
 
-c) 
 ```{r}
 #| label: theme-dark
 
@@ -232,8 +237,8 @@ p +
   theme(legend.position = "none")
 ```
 
+d)  
 
-d) 
 ```{r}
 #| label: theme-void
 
@@ -245,12 +250,12 @@ p +
 
 ## gganimate
 
-There are many, many ways to "spice up" your plots.  We will focus in on one: making your plot animated!
+There are many, many ways to "spice up" your plots. We will focus in on one: making your plot animated!
 
 The best package for this, if you are using `ggplot` already, is `gganimate`.
 
-:::{.callout-note}
-`gganimate` plot objects can sometimes take a long time to render.  One way to make it quicker is to change the number of frames in your gif.  Another trick is to use the [cache chunk option](https://quarto.org/docs/computations/r.html#caching) in Quarto, so that you don't re-render the images every time you knit your file.
+::: callout-note
+`gganimate` plot objects can sometimes take a long time to render. One way to make it quicker is to change the number of frames in your gif. Another trick is to use the [cache chunk option](https://quarto.org/docs/computations/r.html#caching) in Quarto, so that you don't re-render the images every time you knit your file.
 :::
 
 ```{r}
@@ -282,7 +287,7 @@ req_vid("gganimate flipbook demo (RStudio::conf 2017)", type = "Optional", url =
 checkin("gganimate")
 ```
 
-4. Fill in the blanks for the `gganimate` plot below:
+4.  Fill in the five (5) blanks for the `gganimate` plot below:
 
 ```{r}
 #| label: gganimate-plot-code-trans-states
@@ -303,36 +308,51 @@ animate(p1, nframes = 10, fps = 5)
 ```
 
 ```{r}
-#| label: gganimate-plot-code-transition-time
-#| include: false
+#| label: gganimate-transition-time
 #| eval: false
+#| echo: false
 
 p2 <- oscars %>%
   filter(Award_Gender != "Ungendered") %>%
   ggplot(aes(x = Age_at_Award, fill = Award_Gender)) +
   geom_density(alpha = 0.5) +
-  ggtitle("Age of Academy Award Winners ({frame_time}s)") + 
-  xlab("Year of Award") +
-  ylab("Age at Award") +
+  labs(title = "Age of Academy Award Winners ({frame_time}s)", 
+       x = "", 
+       y = "", 
+       fill = "Gender of Award") +
+  theme(legend.position = "top") +
   transition_time(Decade_of_Award)
 
 animate(p2, nframes = 9, fps = 1)
+
+anim_save(filename = "oscars-animation.gif")
+```
+
+```{r}
+#| eval: false
+#| label: gganimate-code
+#| echo: true
+
+___ <- oscars %>%
+  filter(Award_Gender != "Ungendered") %>%
+  ggplot(aes(x = Age_at_Award, fill = Award_Gender)) +
+  geom_density(alpha = 0.5) +
+  labs(title = "Age of Academy Award Winners ({____}s)", 
+       x = "", 
+       y = "", 
+       fill = "Gender of Award") +
+  theme(legend.position = "top") +
+  ____(Decade_of_Award)
+
+animate(p2, nframes = ____, fps = ____)
 ```
 
 ```{r}
 #| echo: false
-#| cache: true
 #| label: flair-gganimate-code
 
-# decorate("gganimate-plot-code-trans-states") %>%
-#   mask("closest_state", background = "#fdff32") %>%
-#   mask("states", background = "#fdff32") %>%
-#   mask("shadow_mark", background = "#fdff32") %>%
-#   mask("p1 ", background = "#fdff32") %>%
-#   mask("nframes", background = "#fdff32") %>%
-#   mask("fps", background = "#fdff32")
-
-decorate("gganimate-plot-code-transition-time") %>%
+decorate("gganimate-transition-time", 
+         eval = FALSE) %>%
   mask("p2 ", background = "#fdff32") %>%
   mask("transition_time", background = "#fdff32") %>%
   mask("frame_time", background = "#fdff32") %>%
@@ -340,6 +360,8 @@ decorate("gganimate-plot-code-transition-time") %>%
   mask("fps", background = "#fdff32")
 
 ```
+
+![](images/oscars-animation.gif)
 
 ## Other Extensions
 
@@ -368,24 +390,24 @@ req_read("more ggplot extension summaries", url = "https://mode.com/blog/r-ggplo
 checkin("More Extensions")
 ```
 
-5. Which extension package would you use to...
+5.  Which extension package would you use to...
 
-:::{.callout-hint}
+::: callout-hint
 There is more than one possible answer for each question!
 :::
 
-a) Visualize a **social network** using twitter data?
+a)  Visualize a **social network** using twitter data?
 
 <!-- ggraph, ggnetwork -->
 
-b) **Add p-values** to your side-by-side boxplot of treatment groups, showing the significance of the differences?
+b)  **Add p-values** to your side-by-side boxplot of treatment groups, showing the significance of the differences?
 
 <!-- ggpubr, ggstatsplot -->
 
-c) Arrange **several different plots** next to each other?
+c)  Arrange **several different plots** next to each other?
 
 <!-- patchwork, cowplot, GGAlly -->
 
-d) Make it so **hovering over a point** in your scatterplot shows the corresponding label?
+d)  Make it so **hovering over a point** in your scatterplot shows the corresponding label?
 
 <!-- Plotly, ggiraph -->
