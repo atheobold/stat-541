@@ -359,14 +359,28 @@ us_arrests <- us_arrests %>%
   rownames_to_column(var = "State")
 ```
 
-**Question 2:** Fill in the blanks for the code that will produce the following:
+**Question 2:** Fill in the four (4) blanks for the code that will produce the following:
 
 ```{r}
-#| include: false
-#| label: pivot-arrests
+#| label: pivot-arrests-code
+#| echo: true
+#| eval: false
 
 us_arrests %>%
+  rownames_to_column(var = "State") %>% 
+  pivot_XXXX(cols = ____,
+             ____ = "Crime",
+             ____ = "Rate")
+```
+
+```{r}
+#| label: pivot-arrests
+#| echo: false
+
+us_arrests %>%
+  rownames_to_column(var = "State") %>% 
   pivot_longer(cols = Murder:Assault,
                names_to = "Crime",
                values_to = "Rate")
 ```
+

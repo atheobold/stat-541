@@ -3331,7 +3331,32 @@ Colorado      7.9     204       78</code></pre>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>us_arrests <span class="ot">&lt;-</span> us_arrests <span class="sc">%&gt;%</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">&quot;State&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><strong>Question 2:</strong> Fill in the blanks for the code that will produce the following:</p>
+<p><strong>Question 2:</strong> Fill in the four (4) blanks for the code that will produce the following:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>us_arrests <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">&quot;State&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_XXXX</span>(<span class="at">cols =</span> ____,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">____ =</span> <span class="st">&quot;Crime&quot;</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">____ =</span> <span class="st">&quot;Rate&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 100 × 4
+   State      UrbanPop Crime    Rate
+   &lt;chr&gt;         &lt;int&gt; &lt;chr&gt;   &lt;dbl&gt;
+ 1 Alabama          58 Murder   13.2
+ 2 Alabama          58 Assault 236  
+ 3 Alaska           48 Murder   10  
+ 4 Alaska           48 Assault 263  
+ 5 Arizona          80 Murder    8.1
+ 6 Arizona          80 Assault 294  
+ 7 Arkansas         50 Murder    8.8
+ 8 Arkansas         50 Assault 190  
+ 9 California       91 Murder    9  
+10 California       91 Assault 276  
+# ℹ 90 more rows</code></pre>
+</div>
+</div>
 </section>
 
 </main>
