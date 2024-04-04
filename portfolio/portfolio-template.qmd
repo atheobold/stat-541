@@ -46,8 +46,8 @@ my_level <- 1
 
 portfolio_levels <- portfolio_levels %>%
   bind_rows(
-    c(Objective = "IL-1",
-      Level = my_level)
+    tibble(Objective = "IL-1",
+           Level = my_level)
     )
 ```
 
@@ -72,8 +72,8 @@ my_level <- 1
 
 portfolio_levels <- portfolio_levels %>%
   bind_rows(
-    c(Objective = "IL-2", 
-      Level = my_level)
+    tibble(Objective = "IL-2", 
+           Level = my_level)
     )
 ```
 
@@ -99,8 +99,10 @@ portfolio_levels <- portfolio_levels %>%
 my_level <- 1
 
 portfolio_levels <- portfolio_levels %>%
-  bind_rows(c(Objective = "RW-1", 
-              Level = my_level))
+  bind_rows(
+    tibble(Objective = "RW-1",
+           Level = my_level)
+    )
 ```
 
 ### Level: `r my_level`
@@ -122,8 +124,8 @@ my_level <- 1
 
 portfolio_levels <- portfolio_levels %>%
   bind_rows(
-    c(Objective = "RW-2", 
-      Level = my_level)
+    tibble(Objective = "RW-2",
+           Level = my_level)
     )
 ```
 
@@ -145,8 +147,10 @@ portfolio_levels <- portfolio_levels %>%
 my_level <- 1
 
 portfolio_levels <- portfolio_levels %>%
-  bind_rows(c(Objective = "RW-3", 
-              Level = my_level))
+  bind_rows(
+    tibble(Objective = "RW-3",
+           Level = my_level)
+    )
 ```
 
 ### Level: `r my_level`
@@ -175,8 +179,8 @@ my_level <- 1
 
 portfolio_levels <- portfolio_levels %>%
   bind_rows(
-    c(Objective = "TC-1", 
-      Level = my_level)
+    tibble(Objective = "TC-1", 
+           Level = my_level)
     )
 ```
 
@@ -199,8 +203,8 @@ my_level <- 1
 
 portfolio_levels <- portfolio_levels %>%
   bind_rows(
-    c(Objective = "TC-2", 
-      Level = my_level)
+    tibble(Objective = "TC-2", 
+           Level = my_level)
     )
 ```
 
@@ -229,8 +233,8 @@ my_level <- 1
 
 portfolio_levels <- portfolio_levels %>%
   bind_rows(
-    c(Objective = "DM-1", 
-      Level = my_level)
+    tibble(Objective = "DM-1", 
+           Level = my_level)
     )
 ```
 
@@ -253,8 +257,8 @@ my_level <- 1
 
 portfolio_levels <- portfolio_levels %>%
   bind_rows(
-    c(Objective = "DM-2", 
-      Level = my_level)
+    tibble(Objective = "DM-2",
+           Level = my_level)
     )
 ```
 
@@ -273,8 +277,8 @@ portfolio_levels <- portfolio_levels %>%
 my_level <- 0
 
 portfolio_levels <- portfolio_levels %>%
-  bind_rows(c(Objective = "DM-3", 
-              Level = my_level))
+  bind_rows(tibble(Objective = "DM-3", 
+                   Level = my_level))
 ```
 
 ### Level: `r my_level`
@@ -295,8 +299,8 @@ my_level <- 1
 
 portfolio_levels <- portfolio_levels %>%
   bind_rows(
-    c(Objective = "DM-3", 
-      Level = my_level)
+    tibble(Objective = "DM-3", 
+           Level = my_level)
     )
 ```
 
@@ -324,8 +328,8 @@ my_level <- 1
 
 portfolio_levels <- portfolio_levels %>%
   bind_rows(
-    c(Objective = "PV-1", 
-      Level = my_level)
+    tibble(Objective = "PV-1", 
+           Level = my_level)
     )
 ```
 
@@ -348,11 +352,10 @@ my_level <- 1
 
 portfolio_levels <- portfolio_levels %>%
   bind_rows(
-    c(Objective = "PV-2", 
-      Level = my_level)
+    tibble(Objective = "PV-2", 
+           Level = my_level)
     )
 ```
-
 
 ### Level: `r my_level`
 
@@ -373,11 +376,10 @@ my_level <- 1
 
 portfolio_levels <- portfolio_levels %>%
   bind_rows(
-    c(Objective = "PV-3", 
-      Level = my_level)
+    tibble(Objective = "PV-3", 
+           Level = my_level)
     )
 ```
-
 
 ### Level: `r my_level`
 
@@ -398,11 +400,10 @@ my_level <- 1
 
 portfolio_levels <- portfolio_levels %>%
   bind_rows(
-    c(Objective = "PV-4", 
-      Level = my_level)
+    tibble(Objective = "PV-4", 
+           Level = my_level)
     )
 ```
-
 
 ### Level: `r my_level`
 
@@ -430,8 +431,8 @@ my_level <- 1
 
 portfolio_levels <- portfolio_levels %>%
   bind_rows(
-    c(Objective = "SD-1", 
-      Level = my_level)
+    tibble(Objective = "SD-1", 
+           Level = my_level)
     )
 ```
 
@@ -456,8 +457,8 @@ my_level <- 1
 
 portfolio_levels <- portfolio_levels %>%
   bind_rows(
-    c(Objective = "SD-2", 
-      Level = my_level)
+    tibble(Objective = "SD-2", 
+           Level = my_level)
     )
 ```
 
@@ -486,8 +487,8 @@ my_level <- 1
 
 portfolio_levels <- portfolio_levels %>%
   bind_rows(
-    c(Objective = "MO-1", 
-      Level = my_level)
+    tibble(Objective = "MO-1", 
+           Level = my_level)
     )
 ```
 
@@ -510,8 +511,8 @@ my_level <- 1
 
 portfolio_levels <- portfolio_levels %>%
   bind_rows(
-    c(Objective = "MO-2", 
-      Level = my_level)
+    tibble(Objective = "MO-2", 
+           Level = my_level)
     )
 ```
 
@@ -539,8 +540,8 @@ my_level <- 1
 
 portfolio_levels <- portfolio_levels %>%
   bind_rows(
-    c(Objective = "AI-1", 
-      Level = my_level)
+    tibble(Objective = "AI-1", 
+           Level = my_level)
     )
 ```
 
@@ -563,8 +564,8 @@ my_level <- 1
 
 portfolio_levels <- portfolio_levels %>%
   bind_rows(
-    c(Objective = "AI-2", 
-      Level = my_level)
+    tibble(Objective = "AI-2", 
+           Level = my_level)
     )
 ```
 
@@ -593,8 +594,8 @@ my_level <- 1
 
 portfolio_levels <- portfolio_levels %>%
   bind_rows(
-    c(Objective = "CD-1", 
-      Level = my_level)
+    tibble(Objective = "CD-1", 
+           Level = my_level)
     )
 ```
 
@@ -617,8 +618,8 @@ my_level <- 1
 
 portfolio_levels <- portfolio_levels %>%
   bind_rows(
-    c(Objective = "CD-2", 
-      Level = my_level)
+    tibble(Objective = "CD-2", 
+           Level = my_level)
     )
 ```
 
@@ -641,8 +642,8 @@ my_level <- 1
 
 portfolio_levels <- portfolio_levels %>%
   bind_rows(
-    c(Objective = "CD-3", 
-      Level = my_level)
+    tibble(Objective = "CD-3", 
+           Level = my_level)
     )
 ```
 
@@ -666,8 +667,8 @@ my_level <- 1
 
 portfolio_levels <- portfolio_levels %>%
   bind_rows(
-    c(Objective = "CD-4", 
-      Level = my_level)
+    tibble(Objective = "CD-4", 
+           Level = my_level)
     )
 ```
 
@@ -702,8 +703,6 @@ portfolio_levels %>%
 
 ## Grade
 
-Based on the summary plot above, I believe I have earned a ___ in STAT 541. 
+Based on the summary plot above, I believe I have earned a \_\_\_ in STAT 541.
 
 ### Justification
-
-
