@@ -34,7 +34,8 @@ library(gganimate)
 #| include: false
 
 oscars <- read_csv(
-  here::here("data", 
+  here::here("week-2", 
+             "data", 
              "oscars-demographics-DFE.csv")
   )
 
@@ -173,9 +174,8 @@ checkin("Theme settings")
 
 2.  Consider the plot in Question 1. What change was made to it in each step below? That is, what code would go inside the function `+ theme(          )` to produce the added change?
 
-```{=html}
 <!-- -->
-```
+
 a)  
 
 ```{r}
