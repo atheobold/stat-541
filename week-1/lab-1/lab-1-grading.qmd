@@ -1,0 +1,104 @@
+---
+title: "Lab 1 Grading Guide"
+format: html
+embed-resources: true
+editor: visual
+---
+
+## Part One - Q-Q Plot Function
+
+-   CD-4: Algorithmic Process – Stopping conditions
+
+    -   Expert: Has multiple checks for the behavior of the input(s) (e.g., `is.numeric()`, `length(x) > 2`)
+
+    -   Mastery: Has at least one check for the behavior of the input(s)
+
+    -   No Evidence: No stopping conditions were included in function
+
+-   TC-2: Documentation – Do code comments that guide the reader through the process(es) being used?
+
+    -   Expert: Mastery + additional comments to clarify the behavior of functions used
+
+    -   Mastery: Comments guide the reader through each step of the function
+
+    -   Proficiency: Comments guide the reader through the "major" parts of the function
+
+    -   Novice: Few if any comments are used in the body of the function
+
+-   RW-3: Code Style – Does the code follow the tidyverse / Google style guide?
+
+    -   Expert: Mastery + excessive use of new lines for nested operations
+
+    -   Mastery: Code completely follows the tidyverse / Google style guide
+
+    -   Proficiency: The majority of the time the code **does follow** the tidyverse / Google style guide
+
+    -   Novice: The majority of the time the code **does not follow** the tidyverse / Google style guide
+
+-   PV-1: `ggplot` Grammar of Graphics -- Are variables and aesthetics being properly used?
+
+    -   Expert: Variables are always specified within a data frame
+
+    -   Proficiency: Variables are specified within a data frame but also as vectors
+
+-   PV-2: `ggplot` Themes – Do their plots have clear labels and / or visually appealing themes?
+
+    -   Mastery: Plots have clearly labeled axes and use visually appealing themes
+
+    -   Proficiency: Plots have clearly labeled axes with few, if any exceptions
+
+    -   Novice: Many plots do not have clearly labeled axes
+
+## Part Two - Oscars Analysis
+
+-   DM-1: Data Preparation – Clean datasets to deal with missing data, typos, poor formatting
+
+    -   Expert: **Every** instance of missing or ill formatted data is dealt with in a reproducible manner
+
+    -   Mastery: **Most** instances of missing or ill formatted data are dealt with in a reproducible manner
+
+    -   Proficiency: **Some** instances of missing or ill formatted data are dealt with, some instances may involve hard coding of values
+
+    -   Novice: **Few** instances of missing or ill formatted data are dealt with, the instances that are dealt with involve hard coding of values
+
+-   DM-2: Data Wrangling – I can use grouping to wrangle data.
+
+    -   Mastery: When grouping is necessary for calculating summary statistics, it is **always** used
+
+    -   Proficiency: Occasionally grouping is not used for calculating summary statistics, when it is necessary
+
+-   TC-1: Project Summaries – Interpret statistical or modeling results
+
+    -   Expert: Achieves Mastery and also discusses statistical "significance" of these gendered differences
+
+    -   Mastery: Fits an interaction model and provides interpretations of the intercept and slope differences between men and women
+
+    -   Proficiency: Interprets model correctly, but does not fit an interaction model
+
+    -   Novice: Does not interpret model correctly (regardless of correctness of model)
+
+-   RW-1: File, Code, and Data Management – Is the `here` package being used to read in the data?
+
+    -   Mastery: Uses `here` package to read in data
+
+    -   Proficiency: Does not use `here` package to read in data
+
+-   RW-2: Notebooks – Is their rendered HTML document nicely formatted?
+
+    -   Expert: Clean formatted document
+
+        -   no messages or warnings
+
+        -   sections / subsections separate the different components of the assignment
+
+        -   output formatted as tables
+
+        -   code folding used to remove code from being shown
+
+    -   Mastery: Clean formatted document
+
+        -   no messages or warnings
+
+        -   sections / subsections separate the different components of the assignment
+
+    -   Proficiency: Document can be followed, but there are distracting messages, warnings, and / or unnecessary code output (e.g., dataset previews)
