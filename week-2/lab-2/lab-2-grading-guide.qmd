@@ -1,0 +1,23 @@
+---
+title: "Lab 2 Grading Guide"
+format: html
+embed-resources: true
+editor: visual
+---
+
+| Learning Objective                         | Expert | Mastery | Proficient | Novice |
+|--------------------------------------------|--------|---------|------------|--------|
+| PV-1: Less Common Geometries               |        |         |            |        |
+| PV-1: Map Variables                        |        |         |            |        |
+| PV-1: Annotations                          |        |         |            |        |
+| PV-2: Titles, Subtitles, Axis Labels       |        |         |            |        |
+| PV-2: Colors                               |        |         |            |        |
+| PV-2: Themes                               |        |         |            |        |
+| PV-3: gganimate                            |        |         |            |        |
+| PV-3: Interactive Plots                    |        |         |            |        |
+| RW-1: Load Data with `here`                |        |         |            |        |
+| RW-1: Organized scripts, data, notebooks   |        |         |            |        |
+| RW-2: Polished rendered document           |        |         |            |        |
+| RW-2: Appropriate code chunk options       |        |         |            |        |
+| RW-3: Clear, readable, well commented code |        |         |            |        |
+| CD-2: Saving Intermediate Objects          |        |         |            |        |
