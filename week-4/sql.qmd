@@ -1,36 +1,28 @@
 ---
-title: "Week 3:  New Data Sources"
-author: "Stat 431"
-output:
-  prettydoc::html_pretty:
-    theme: tactile
-    highlight: github
+title: "Week 4: New Data Sources"
+format: html
+editor: visual
+embed-resources: true
+execute: 
+  echo: false
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-source("./Scripts/window_dressing.R")
-quiz_url <- "https://canvas.calpoly.edu/courses/16654/quizzes/12677"
+```{r}
+#| label: setup
+#| include: false
+
+source("../scripts/window_dressing.R")
+
 library(tidyverse)
 library(flair)
 library(lubridate)
 library(gganimate)
 ```
 
-```{css, echo = FALSE}
-img {
-  vertical-align:middle
-}
+```{r}
+#| label: summary-table-of-activities
+#| results: asis
 
-body {
-  text-shadow:none;
-}
-
-
-```
-
-
-```{r, results = "asis", echo = FALSE}
 make_summary_table(vid_time = "5 min", 
                    reading_time = "45 min", 
                    work_time = "60 min", 
@@ -47,7 +39,10 @@ We're going to get some practice by connecting to a SQLite database. To keep the
 
 **Please go to the following site, read about the Chinook sample database tables, and then download the Chinook sample database:**
 
-```{r, results = "asis", echo = FALSE}
+```{r}
+#| label: required-reading-sql-lite
+#| results: asis
+
 req_read("SQLite Sample Database", url = "https://www.sqlitetutorial.net/sqlite-sample-database/")
 ```
 
@@ -55,7 +50,10 @@ It should have downloaded a zipped file with the database file inside it. You'll
 
 Now, follow the code on the site below to connect to and access the chinook.db file you just downloaded. 
 
-```{r, results = "asis", echo = FALSE}
+```{r}
+#| label: required-reading-sql-lite-example
+#| results: asis
+
 req_read("SQLite Example", url = "https://db.rstudio.com/databases/sqlite/")
 ```
 
@@ -65,24 +63,26 @@ req_read("SQLite Example", url = "https://db.rstudio.com/databases/sqlite/")
 - Instead of ":memory:" inside your `dbConnect()` function, you should specify the path to your chinook.db file including the filename itself.
 - You do NOT need to write or use SQL code to access and work with the database. You can store the results of `db` functions in variables in the `R` environment or even pipe them into other pipe-friendly functions.
 
-```{r, results = "asis", echo = FALSE}
+```{r}
+#| label: checkin-database
+#| results: asis
+
 checkin("Chinook Database")
 ```
 
-a) How many observations/rows are in the `employees` table?
+a) How many observations / rows are in the `employees` table?
 
 b) How many different job titles are included in the `employees` table?
 
 c) What is the average of the `Total` variable in the `invoices` table?
 
 
-```{r, results = "asis", echo = FALSE}
-canvas_task(quiz_url)
-```
-
 Before you finish this portion of the coursework, take a moment to run `?dbConnect` and notice that with this function you have the ability to connect to all sorts of external data sources that may require more credentials or authentication.
 
-```{r, results = "asis", echo = FALSE}
+```{r}
+#| label: extra-resources
+#| results: asis
+
 extra_rec("")
 ```
 
@@ -93,7 +93,10 @@ extra_rec("")
 
 Now that we've talked about the JSON format for data files, it's time we talked about one of the primary vehicles for them: APIs.
 
-```{r, results = "asis", echo = FALSE}
+```{r}
+#| label: required-video-api
+#| results: asis
+
 req_vid("What is an API?", url = 'https://www.youtube.com/watch?v=s7wmiS2mSXY', 
         embed = '<iframe width="400" height="225" style="width: 400px; height: 225px;" src="https://www.youtube.com/embed/s7wmiS2mSXY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>')
 ```
@@ -102,11 +105,17 @@ This is the tip of the iceberg when it comes to APIs, but it will suffice to ena
 
 For our class we're not interested in **creating** APIs, but mostly **using** them to access data that we otherwise couldn't get our hands on...at least not as easily.
 
-```{r, results = "asis", echo = FALSE}
+```{r}
+#| label: required-reading-api-tutorial
+#| results: asis
+
 req_read("R API Tutorial", url = "https://www.dataquest.io/blog/r-api-tutorial/")
 ```
 
-```{r, results = "asis", echo = FALSE}
+```{r}
+#| label: checkin-api
+#| results: asis
+
 checkin("R API Tutorial")
 ```
 
@@ -125,10 +134,6 @@ b) What type of request will we likely start with when getting data from an API?
 * SUMMON
 
 c) How many people are currently aboard the International Space Station?
-
-```{r, results = "asis", echo = FALSE}
-canvas_task(quiz_url)
-```
 
 
 

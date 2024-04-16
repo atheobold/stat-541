@@ -1,0 +1,96 @@
+---
+title: "Week 4: JSON Data"
+format: html
+embed-resources: true
+editor: visual
+execute: 
+  echo: false
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+source("../scripts/window_dressing.R")
+
+library(tidyverse)
+library(flair)
+library(lubridate)
+library(gganimate)
+```
+
+```{r}
+#| label: summary-table-of-activities
+#| results: asis
+
+make_summary_table(vid_time = "20 min", 
+                   reading_time = "30 min", 
+                   work_time = "60 min", 
+                   canvas_activities = 2)
+```
+
+```{r}
+#| label: extra-resources
+#| results: asis
+
+extra_rec("")
+```
+
+-   The GitHub page for [`rvest`](https://github.com/tidyverse/rvest). Be sure to check out the vignettes and other documentation.
+-   In-depth (for the scope of our course) [crash course in JSON](https://www.youtube.com/watch?v=wI1CWzNtE-M)
+
+## Tabular Data
+
+It's likely that a huge portion of the datasets you've worked with in your life thus far are very well structured and organized to the point of being **tabular**. That is, the dataset consists of a single table with rows and columns. If you're not familiar with the concept of **tidy data** I suggest you check out this [`tidyr` vignette](https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html) on what it means for a dataset to be "tidy." Most of your datasets have likely even been tidy:
+
+-   Each variable forms a column
+-   Each observation forms a row
+
+Almost everyone's experiences beyond this probably involved taking multiple **tidy** datasets and combining them in some way, but the overall dataset still fit into this tabular structure. These often came in the form of TXT, CSV, Excel, or TSV files.
+
+Our world is rich with data and a great deal of it doesn't come in nice, neat tables...BUT a lot of it is still extremely structured and well organized.
+
+## Structured, but Non-Tabular Data
+
+You've likely already noticed, via your work with `leaflet`, there is another very popular data format called "JSON". JSON is short for **J**ava**S**cript **O**bject **N**otation and is a syntax for storing and exchanging data...but data in a much broader sense than we're used to thinking about.
+
+In the middle of a statistics-related course when I hear the word "data" my mind instinctively envisions something tabular with which we could do some sort of visualization or analysis with. However, in the broadest sense, the word "data" really just describes pieces of information...which encapsulates everything from movie theater schedules when you look up showtimes on a website to what your cell phone *uses* as part of your "data plan."
+
+While the website for your favorite movie theater may not have had your visualization and analysis plans in mind, their data may still be of interest to us. Many companies and organizations have built tools that allow access to their data in a more streamlined way, and JSON has become a ubiquitous format for many of these data sources to use.
+
+```{r}
+#| label: required-video-json
+#| results: asis
+
+req_vid("What is JSON?", url = 'https://www.youtube.com/watch?v=JuFdz8f-cT4', 
+        embed = '<iframe width="400" height="225" style="width: 400px; height: 225px;" src="https://www.youtube.com/embed/JuFdz8f-cT4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>')
+```
+
+One of the reasons the JSON format is so important and useful is because it can accommodate very complex types and shapes of data. So while it may not always be workable into a tabular form, it still maintains a high degree of structure that we can exploit!
+
+```{r}
+#| label: required-reading-json
+#| results: asis
+
+req_read("Short JSON Introduction", url = "https://www.w3schools.com/whatis/whatis_json.asp")
+```
+
+```{r}
+#| label: check-in-json
+#| results: asis
+
+checkin("JSON")
+```
+
+a)  Objects are held in \_\_\_\_\_.
+
+-   parentheses
+-   double quotes
+-   square brackets
+-   curly braces
+
+b)  While it may seem tedious compared to our usual tabular forms of data, JSON data is easy to read because it \_\_\_\_\_.
+
+-   comes in name/value pairs
+-   is separated by "-----"
+-   comes in table / name/value triplets
