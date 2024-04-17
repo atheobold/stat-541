@@ -3060,16 +3060,14 @@ vertical-align: -.125em;
 
 <table class="table">
 <colgroup>
-<col style="width: 54%">
-<col style="width: 9%">
-<col style="width: 11%">
-<col style="width: 14%">
-<col style="width: 9%">
+<col style="width: 41%">
+<col style="width: 19%">
+<col style="width: 19%">
+<col style="width: 19%">
 </colgroup>
 <thead>
 <tr class="header">
 <th>Learning Objective</th>
-<th>Expert</th>
 <th>Mastery</th>
 <th>Proficient</th>
 <th>Novice</th>
@@ -3078,101 +3076,81 @@ vertical-align: -.125em;
 <tbody>
 <tr class="odd">
 <td>PV-1: Less Common Geometries</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>Proficient + multiple geometries</td>
+<td>Uses at least one geometry that is less common</td>
+<td>No evidence of using less common geometries</td>
 </tr>
 <tr class="even">
 <td>PV-1: Map Variables</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>Proficient + tailors map visualizations</td>
+<td>Uses mapping for data visualizations but largely relies on default characteristics</td>
+<td>No evidence of using mapping for data visualizations</td>
 </tr>
 <tr class="odd">
 <td>PV-1: Annotations</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>Proficient + tailors the size, color, font of the annotations</td>
+<td>Novice + includes annotations in multiple locations</td>
+<td>Can add simple annotations to visualization</td>
 </tr>
 <tr class="even">
 <td>PV-2: Titles, Subtitles, Axis Labels</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>Proficient + tailors labels to remove legend</td>
+<td>Novice + labels don’t make people tilt their head</td>
+<td>Plot labels are descriptive and include units, but make people tilt their head</td>
 </tr>
 <tr class="odd">
 <td>PV-2: Colors</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>Proficient + tailors ordering of colors, saturation of colors to make the plot more clear</td>
+<td>Uses an R package to tailor colors</td>
+<td>Uses default ggplot colors</td>
 </tr>
 <tr class="even">
 <td>PV-2: Themes</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>Proficient + uses additional theme options (e.g., grid lines, font size)</td>
+<td>Uses built-in themes (e.g., <code>theme_bw()</code> to tailor plots</td>
+<td>Uses default ggplot theme</td>
 </tr>
 <tr class="odd">
 <td>PV-3: gganimate</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>Proficient + more complex transitions are used</td>
+<td>gganimate is used to integrate transition states</td>
+<td>No evidence of using gganimate</td>
 </tr>
 <tr class="even">
 <td>PV-3: Interactive Plots</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>Proficient + interactive elements include multiple features of the data (e.g., including information on observations via hover)</td>
+<td>R packages are used to create interactive plots with simple features exploring the data (e.g., names of observations)</td>
+<td>No evidence of using interactive plots</td>
 </tr>
 <tr class="odd">
 <td>RW-1: Load Data with <code>here</code></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>Uses <code>here()</code> to read in data from subfolder within main folder</td>
+<td>Uses <code>here()</code> to read in data from main folder</td>
+<td>Does not use <code>here()</code> to load in data</td>
 </tr>
 <tr class="even">
 <td>RW-1: Organized scripts, data, notebooks</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>Subfolders are used to organize files, and files are given informative names that describe their contents</td>
+<td>All files are included in main repo (no subfolders), but files are given informative names that describe their contents</td>
+<td>All files are included in main repo (no subfolders), names of files are not informative (do not describe their contents)</td>
 </tr>
 <tr class="odd">
-<td>RW-2: Polished rendered document</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>RW-2: Polished rendered document &amp; appropriate code chunk options</td>
+<td>Proficient + uses YAML options to tailor the format of the HTML file</td>
+<td>Uses many code chunk options to tailor the format of the rendered HTML, no messages or warnings are output</td>
+<td>Code is shown in the rendered document, but messages and warnings being output on the page</td>
 </tr>
 <tr class="even">
-<td>RW-2: Appropriate code chunk options</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
 <td>RW-3: Clear, readable, well commented code</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>Proficient + additional formatting (e.g., extra new lines) is used to make the code more readable</td>
+<td>In all but a few instances the code adheres to tidyverse style guide</td>
+<td>At times, the code adheres to the tidyverse style guide, but often it does not</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>CD-2: Saving Intermediate Objects</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>Immaculate R workspace – intermediate objects are not used unless absolutely necessary</td>
+<td>Mostly clean R workspace – intermediate objects are <u>occasionally</u> used when they are not needed</td>
+<td>Cluttered R workspace – intermediate objects are <u>frequently</u> used when they are not needed</td>
 </tr>
 </tbody>
 </table>
