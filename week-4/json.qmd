@@ -23,10 +23,10 @@ library(gganimate)
 #| label: summary-table-of-activities
 #| results: asis
 
-make_summary_table(vid_time = "20 min", 
-                   reading_time = "30 min", 
+make_summary_table(vid_time = "12 min", 
+                   reading_time = "15 min", 
                    work_time = "60 min", 
-                   canvas_activities = 2)
+                   canvas_activities = 1)
 ```
 
 ```{r}
@@ -94,3 +94,6 @@ b)  While it may seem tedious compared to our usual tabular forms of data, JSON 
 -   comes in name/value pairs
 -   is separated by "-----"
 -   comes in table / name/value triplets
+
+<!-- Add questions from jsonlight R package -->
+<!-- https://cran.r-project.org/web/packages/tidyjson/vignettes/introduction-to-tidyjson.html -->
