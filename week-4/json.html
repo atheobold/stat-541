@@ -3194,60 +3194,545 @@ vertical-align: -.125em;
 <ol start="3" type="1">
 <li>How many arrays from the <code>companies</code> dataset were not spread into new columns?</li>
 </ol>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 13 × 3
-   name           type      n
-   &lt;chr&gt;          &lt;fct&gt; &lt;int&gt;
- 1 acquisitions   array  1000
- 2 competitions   array  1000
- 3 external_links array  1000
- 4 funding_rounds array  1000
- 5 investments    array  1000
- 6 milestones     array  1000
- 7 offices        array  1000
- 8 partners       array  1000
- 9 products       array  1000
-10 providerships  array  1000
-11 relationships  array  1000
-12 screenshots    array  1000
-13 video_embeds   array  1000</code></pre>
-</div>
-</div>
+<p><strong>Step 3</strong> – Manually spread the problem values</p>
 <p>Now that we know the names of the values that were not spread into columns, we can wrangle specific values to capture their values. Let’s do this with the <code>acquisitions</code> value.</p>
 <p>We do this with the following pipeline:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>name_of_dataset <span class="sc">%&gt;%</span> </span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">enter_object</span>(name_of_value) <span class="sc">%&gt;%</span> </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather_array</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">spread_all</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>name_of_dataset <span class="sc">%&gt;%</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">enter_object</span>(name_of_value) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather_array</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">spread_all</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The <code>enter_object()</code> function allows you to navigate a specific value of the JSON data by referencing its name. <code>gather_array()</code> then collapses a JSON array into index-value pairs, creating a new column <code>array.index</code> to store the index of the array, and storing values in the ‘JSON’ attribute for further tidyjson manipulation.</p>
 <ol start="4" type="1">
 <li>Using this pipeline on the <code>acquisitions</code> array of the <code>companies</code> dataset, what values are stored in this array? i.e., what are the names of the new columns that appear in the spread dataset?</li>
 </ol>
+<p><strong>Step 4</strong> – Combining everything together</p>
+<p>By combining with our initial top-level <code>spread_all()</code>, we can aggregate the sale price of companies by <code>category_code</code> and the currency it was sold in.</p>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code># A tbl_json: 199 x 13 tibble with a &quot;JSON&quot; attribute
-   ..JSON     document.id array.index price_amount price_currency_code term_code
-   &lt;chr&gt;            &lt;int&gt;       &lt;int&gt;        &lt;dbl&gt; &lt;chr&gt;               &lt;chr&gt;    
- 1 &quot;{\&quot;price…           8           1           NA USD                 &lt;NA&gt;     
- 2 &quot;{\&quot;price…          23           1           NA USD                 &lt;NA&gt;     
- 3 &quot;{\&quot;price…          36           1           NA USD                 &lt;NA&gt;     
- 4 &quot;{\&quot;price…          36           2           NA USD                 &lt;NA&gt;     
- 5 &quot;{\&quot;price…          36           3           NA USD                 &lt;NA&gt;     
- 6 &quot;{\&quot;price…          36           4           NA USD                 &lt;NA&gt;     
- 7 &quot;{\&quot;price…          36           5           NA USD                 &lt;NA&gt;     
- 8 &quot;{\&quot;price…          36           6           NA USD                 &lt;NA&gt;     
- 9 &quot;{\&quot;price…          36           7     10300000 USD                 &lt;NA&gt;     
-10 &quot;{\&quot;price…          36           8      2400000 USD                 &lt;NA&gt;     
-# ℹ 189 more rows
-# ℹ 7 more variables: source_url &lt;chr&gt;, source_description &lt;chr&gt;,
-#   acquired_year &lt;dbl&gt;, acquired_month &lt;dbl&gt;, acquired_day &lt;dbl&gt;,
-#   company.name &lt;chr&gt;, company.permalink &lt;chr&gt;</code></pre>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># For nice looking tables!</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>companies <span class="sc">%&gt;%</span> </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">spread_all</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Manually extracting information from acquisitions</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">enter_object</span>(acquisitions) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather_array</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">spread_all</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Removing missing values from relevant variables</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(category_code, price_currency_code, price_amount) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Finding max sale price for different company categories</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(category_code, price_currency_code) <span class="sc">%&gt;%</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">max_price =</span> <span class="fu">max</span>(price_amount), </span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>            ) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Convert to dollar format</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">max_price =</span> scales<span class="sc">::</span><span class="fu">dollar</span>(max_price), </span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Remove _ from company sector</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">category_code =</span> <span class="fu">str_replace_all</span>(category_code, </span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">pattern =</span> <span class="st">&quot;_&quot;</span>,</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">replacement =</span> <span class="st">&quot; &quot;</span>), </span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Capitalize the first letter of each word</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">category_code =</span> <span class="fu">str_to_title</span>(category_code)</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_label</span>(<span class="at">category_code =</span> <span class="fu">md</span>(<span class="st">&quot;**Business Sector**&quot;</span>), </span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>                 <span class="at">price_currency_code =</span> <span class="fu">md</span>(<span class="st">&quot;**Currency of Sale**&quot;</span>), </span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>                 <span class="at">max_price =</span> <span class="fu">md</span>(<span class="st">&quot;**Max Company Sale Price**&quot;</span>)</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>                 )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="nzescrjxwv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#nzescrjxwv table {
+font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+}
+#nzescrjxwv thead, #nzescrjxwv tbody, #nzescrjxwv tfoot, #nzescrjxwv tr, #nzescrjxwv td, #nzescrjxwv th {
+border-style: none;
+}
+#nzescrjxwv p {
+margin: 0;
+padding: 0;
+}
+#nzescrjxwv .gt_table {
+display: table;
+border-collapse: collapse;
+line-height: normal;
+margin-left: auto;
+margin-right: auto;
+color: #333333;
+font-size: 16px;
+font-weight: normal;
+font-style: normal;
+background-color: #FFFFFF;
+width: auto;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #A8A8A8;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #A8A8A8;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+}
+#nzescrjxwv .gt_caption {
+padding-top: 4px;
+padding-bottom: 4px;
+}
+#nzescrjxwv .gt_title {
+color: #333333;
+font-size: 125%;
+font-weight: initial;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-color: #FFFFFF;
+border-bottom-width: 0;
+}
+#nzescrjxwv .gt_subtitle {
+color: #333333;
+font-size: 85%;
+font-weight: initial;
+padding-top: 3px;
+padding-bottom: 5px;
+padding-left: 5px;
+padding-right: 5px;
+border-top-color: #FFFFFF;
+border-top-width: 0;
+}
+#nzescrjxwv .gt_heading {
+background-color: #FFFFFF;
+text-align: center;
+border-bottom-color: #FFFFFF;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+}
+#nzescrjxwv .gt_bottom_border {
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}
+#nzescrjxwv .gt_col_headings {
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+}
+#nzescrjxwv .gt_col_heading {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: normal;
+text-transform: inherit;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: bottom;
+padding-top: 5px;
+padding-bottom: 6px;
+padding-left: 5px;
+padding-right: 5px;
+overflow-x: hidden;
+}
+#nzescrjxwv .gt_column_spanner_outer {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: normal;
+text-transform: inherit;
+padding-top: 0;
+padding-bottom: 0;
+padding-left: 4px;
+padding-right: 4px;
+}
+#nzescrjxwv .gt_column_spanner_outer:first-child {
+padding-left: 0;
+}
+#nzescrjxwv .gt_column_spanner_outer:last-child {
+padding-right: 0;
+}
+#nzescrjxwv .gt_column_spanner {
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+vertical-align: bottom;
+padding-top: 5px;
+padding-bottom: 5px;
+overflow-x: hidden;
+display: inline-block;
+width: 100%;
+}
+#nzescrjxwv .gt_spanner_row {
+border-bottom-style: hidden;
+}
+#nzescrjxwv .gt_group_heading {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: middle;
+text-align: left;
+}
+#nzescrjxwv .gt_empty_group_heading {
+padding: 0.5px;
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+vertical-align: middle;
+}
+#nzescrjxwv .gt_from_md > :first-child {
+margin-top: 0;
+}
+#nzescrjxwv .gt_from_md > :last-child {
+margin-bottom: 0;
+}
+#nzescrjxwv .gt_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+margin: 10px;
+border-top-style: solid;
+border-top-width: 1px;
+border-top-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: middle;
+overflow-x: hidden;
+}
+#nzescrjxwv .gt_stub {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-right-style: solid;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+padding-left: 5px;
+padding-right: 5px;
+}
+#nzescrjxwv .gt_stub_row_group {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-right-style: solid;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+padding-left: 5px;
+padding-right: 5px;
+vertical-align: top;
+}
+#nzescrjxwv .gt_row_group_first td {
+border-top-width: 2px;
+}
+#nzescrjxwv .gt_row_group_first th {
+border-top-width: 2px;
+}
+#nzescrjxwv .gt_summary_row {
+color: #333333;
+background-color: #FFFFFF;
+text-transform: inherit;
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#nzescrjxwv .gt_first_summary_row {
+border-top-style: solid;
+border-top-color: #D3D3D3;
+}
+#nzescrjxwv .gt_first_summary_row.thick {
+border-top-width: 2px;
+}
+#nzescrjxwv .gt_last_summary_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}
+#nzescrjxwv .gt_grand_summary_row {
+color: #333333;
+background-color: #FFFFFF;
+text-transform: inherit;
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#nzescrjxwv .gt_first_grand_summary_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-top-style: double;
+border-top-width: 6px;
+border-top-color: #D3D3D3;
+}
+#nzescrjxwv .gt_last_grand_summary_row_top {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-style: double;
+border-bottom-width: 6px;
+border-bottom-color: #D3D3D3;
+}
+#nzescrjxwv .gt_striped {
+background-color: rgba(128, 128, 128, 0.05);
+}
+#nzescrjxwv .gt_table_body {
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}
+#nzescrjxwv .gt_footnotes {
+color: #333333;
+background-color: #FFFFFF;
+border-bottom-style: none;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+}
+#nzescrjxwv .gt_footnote {
+margin: 0px;
+font-size: 90%;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#nzescrjxwv .gt_sourcenotes {
+color: #333333;
+background-color: #FFFFFF;
+border-bottom-style: none;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+}
+#nzescrjxwv .gt_sourcenote {
+font-size: 90%;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#nzescrjxwv .gt_left {
+text-align: left;
+}
+#nzescrjxwv .gt_center {
+text-align: center;
+}
+#nzescrjxwv .gt_right {
+text-align: right;
+font-variant-numeric: tabular-nums;
+}
+#nzescrjxwv .gt_font_normal {
+font-weight: normal;
+}
+#nzescrjxwv .gt_font_bold {
+font-weight: bold;
+}
+#nzescrjxwv .gt_font_italic {
+font-style: italic;
+}
+#nzescrjxwv .gt_super {
+font-size: 65%;
+}
+#nzescrjxwv .gt_footnote_marks {
+font-size: 75%;
+vertical-align: 0.4em;
+position: initial;
+}
+#nzescrjxwv .gt_asterisk {
+font-size: 100%;
+vertical-align: 0;
+}
+#nzescrjxwv .gt_indent_1 {
+text-indent: 5px;
+}
+#nzescrjxwv .gt_indent_2 {
+text-indent: 10px;
+}
+#nzescrjxwv .gt_indent_3 {
+text-indent: 15px;
+}
+#nzescrjxwv .gt_indent_4 {
+text-indent: 20px;
+}
+#nzescrjxwv .gt_indent_5 {
+text-indent: 25px;
+}
+</style>
+
+<table class="gt_table table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_col_headings">
+<th id="&lt;strong&gt;Business Sector&lt;/strong&gt;" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"><strong>Business Sector</strong></th>
+<th id="&lt;strong&gt;Currency of Sale&lt;/strong&gt;" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"><strong>Currency of Sale</strong></th>
+<th id="&lt;strong&gt;Max Company Sale Price&lt;/strong&gt;" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col"><strong>Max Company Sale Price</strong></th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="category_code">Biotech</td>
+<td class="gt_row gt_left" headers="price_currency_code">USD</td>
+<td class="gt_row gt_right" headers="max_price">$587,000,000</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="category_code">Consulting</td>
+<td class="gt_row gt_left" headers="price_currency_code">USD</td>
+<td class="gt_row gt_right" headers="max_price">$4,500,000</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="category_code">Enterprise</td>
+<td class="gt_row gt_left" headers="price_currency_code">USD</td>
+<td class="gt_row gt_right" headers="max_price">$4,900,000,000</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="category_code">Hardware</td>
+<td class="gt_row gt_left" headers="price_currency_code">USD</td>
+<td class="gt_row gt_right" headers="max_price">$710,000,000</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="category_code">Mobile</td>
+<td class="gt_row gt_left" headers="price_currency_code">USD</td>
+<td class="gt_row gt_right" headers="max_price">$168,000,000</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="category_code">Network Hosting</td>
+<td class="gt_row gt_left" headers="price_currency_code">USD</td>
+<td class="gt_row gt_right" headers="max_price">$45,340,000</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="category_code">News</td>
+<td class="gt_row gt_left" headers="price_currency_code">USD</td>
+<td class="gt_row gt_right" headers="max_price">$1,850,000,000</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="category_code">Other</td>
+<td class="gt_row gt_left" headers="price_currency_code">USD</td>
+<td class="gt_row gt_right" headers="max_price">$23,700,000</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="category_code">Public Relations</td>
+<td class="gt_row gt_left" headers="price_currency_code">USD</td>
+<td class="gt_row gt_right" headers="max_price">$25,000,000</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="category_code">Search</td>
+<td class="gt_row gt_left" headers="price_currency_code">USD</td>
+<td class="gt_row gt_right" headers="max_price">$225,000,000</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="category_code">Security</td>
+<td class="gt_row gt_left" headers="price_currency_code">USD</td>
+<td class="gt_row gt_right" headers="max_price">$242,000,000</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="category_code">Semiconductor</td>
+<td class="gt_row gt_left" headers="price_currency_code">USD</td>
+<td class="gt_row gt_right" headers="max_price">$342,500,000</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="category_code">Software</td>
+<td class="gt_row gt_left" headers="price_currency_code">USD</td>
+<td class="gt_row gt_right" headers="max_price">$155,000,000</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="category_code">Web</td>
+<td class="gt_row gt_left" headers="price_currency_code">USD</td>
+<td class="gt_row gt_right" headers="max_price">$260,000,000</td>
+</tr>
+</tbody>
+</table>
+
 </div>
 </div>
-<p>This is a powerful process, but you might be able to see how we don’t necessarily want to do this process repeatedly for every value <code>spread_all()</code> was not able to parse. Do you see a way you could use iteration to complete this task?</p>
+</div>
+<p><strong>Step 5</strong> – Scaling to multiple columns</p>
+<p>This is a powerful process, but you might be able to see how we don’t necessarily want to do this process repeatedly for every value <code>spread_all()</code> was not able to parse.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Do you see a way you could use iteration to complete this task?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+
+</div>
+</div>
 </section>
 </section>
 
