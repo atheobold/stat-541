@@ -76,10 +76,10 @@ req_read("Short JSON Introduction", url = "https://www.w3schools.com/whatis/what
 ```
 
 ```{r}
-#| label: check-in-json
+#| label: check-in-json-1
 #| results: asis
 
-checkin("JSON")
+checkin("JSON, Part 1")
 ```
 
 a)  Objects are held in \_\_\_\_\_.
@@ -97,3 +97,117 @@ b)  While it may seem tedious compared to our usual tabular forms of data, JSON 
 
 <!-- Add questions from jsonlight R package -->
 <!-- https://cran.r-project.org/web/packages/tidyjson/vignettes/introduction-to-tidyjson.html -->
+
+
+### Working with JSON Data
+
+Several packages exist for working with JSON data in R, such as `rjson`, `rjsonio`, and `jsonlite`. These packages automatically transform JSON data into nested R lists or complex data frames. However, working with these complex objects can be difficult.
+
+The `tidyjson` package takes a different approach to structuring JSON data into tidy data frames. Similar to `tidyr`, `tidyjson` builds a grammar for manipulating JSON into a tidy table structure.
+
+`tidyjson` is based on the following principles:
+
+- Work on a single JSON document, or on a collection of related documents
+- Create pipelines with the pipe operator (`%>%`), producing code that can be read from left to right
+- Guarantee the structure of the data produced, even if the input JSON structure changes (with the exception of `spread_all()`)
+- Work with arbitrarily nested arrays or objects
+- Handle 'ragged' arrays and / or objects (varying lengths by document)
+- Ensure edge cases are handled correctly (especially empty data)
+- Integrate seamlessly with `dplyr`, allowing `tbl_json` objects to pipe in and out of `dplyr` verbs where reasonable
+
+```{r}
+#| label: check-in-json-2
+#| results: asis
+
+checkin("JSON, Part 2")
+```
+
+Let's use the `companies` JSON dataset from the **tidyjson** package to explore tools from the **tidyjson** package. This exploration parallels the `worldbank` examples from the [**tidyjson** vignette](https://cran.r-project.org/web/packages/tidyjson/vignettes/introduction-to-tidyjson.html). 
+
+**Step 1** -- Use `spread_all()` to spread the values of a JSON object
+
+```{r}
+#| label: explore-worldbank-data
+#| message: false
+
+library(tidyjson)
+companies_tidy <- spread_all(companies)
+
+```
+
+1. When you use the `spread_all()` function on the `companies` dataset, how many columns are created?
+
+<!-- `r ncol(companies_tidy)` -->
+
+**Step 2** -- Find the values that were not able to be spread
+
+To identify the names of an object, their type, and frequency we use the following pipeline:
+
+```{r}
+#| eval: false
+#| echo: true
+#| label: process-for-finding-missed-values
+
+name_of_data %>% 
+  gather_object() %>% 
+  json_types() %>% 
+  count(name, type)
+```
+
+The `gather_object()` function collapses a JSON object into name-value pairs, producing a `tbl_json` object. The `json_types()` function then inspects the JSON associated with each row of the `tbl_json` object, and adds a new column (`"type"`) that identifies the type according to the [JSON standard](http://json.org/). We can then `count()` the number of occurances of each `name`, `type` combination to understand how many rows / observations contained these values. 
+
+2. How many different values are included in the `companies` dataset? 
+
+```{r}
+#| label: unique-values-in-dataset
+
+companies_values <- companies %>% 
+  gather_object() %>% 
+  json_types() %>% 
+  count(name, type)
+```
+
+Now that we know the name of **every** value in the `companies` dataset, we can inspect how many of these columns were not captured when we used `spread-all()`. 
+
+3. How many arrays from the `companies` dataset were not spread into new columns?
+
+```{r}
+#| label: values-in-data-not-spread
+
+companies_values %>% 
+  filter(
+    !name %in% colnames(companies_tidy)
+      ) %>% 
+  filter(name != "_id") 
+```
+
+Now that we know the names of the values that were not spread into columns, we can wrangle specific values to capture their values. Let's do this with the `acquisitions` value. 
+
+We do this with the following pipeline:
+
+```{r}
+#| eval: false
+#| echo: true
+#| label: process-for-manually-spreading-values
+
+name_of_dataset %>% 
+  enter_object(name_of_value) %>% 
+  gather_array() %>% 
+  spread_all()
+```
+
+The `enter_object()` function allows you to navigate a specific value of the JSON data by referencing its name. `gather_array()` then collapses a JSON array into index-value pairs, creating a new column `array.index` to store the index of the array, and storing values in the 'JSON' attribute for further tidyjson manipulation. 
+
+4. Using this pipeline on the `acquisitions` array of the `companies` dataset, what values are stored in this array? i.e., what are the names of the new columns that appear in the spread dataset?
+
+```{r}
+#| label: spreading-acquisitions
+
+companies %>% 
+  enter_object(acquisitions) %>% 
+  gather_array() %>% 
+  spread_all()
+```
+
+This is a powerful process, but you might be able to see how we don't necessarily want to do this process repeatedly for every value `spread_all()` was not able to parse. Do you see a way you could use iteration to complete this task?
+
