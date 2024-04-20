@@ -1,0 +1,202 @@
+---
+title: "Webscraping
+format: html
+editor: visual
+---
+
+```{r}
+library(tidyvere)
+```
+
+Today we're going to discuss Web-Scraping!
+
+The most primitive way to get data into R, locally or over a network connection, is to use the function *readLines*. The function literally just reads each line of a file, requiring the user to parse and manage the data.
+
+```{r}
+myLink <- "https://www.itl.nist.gov/div898/handbook/datasets/ANSCOMBE.DAT"
+data <- readLines(myLink)
+str(data)
+head(data)
+```
+
+From here, we can remove the first couple rows.
+
+```{r}
+data <- data[-(1:3)]
+head(data)
+```
+
+Then we can use character management to structure the data.
+
+```{r}
+strsplit(data[1], split = " ")
+```
+
+
+## The XML Package
+
+The library *XML* has functionality to interact with XML/HTML content. Specifically, you can parse and write XML/HTML content within R. The primary functions for parsing files are xmlParse and htmlParse. Note that xmlParse(..., isHTML = TRUE) is the same as *htmlParse*. Depending on the type of file you read, there is subsequent functionality for managing the content.
+
+First, consider the XML file used as a toy example.
+
+\url{http://www.w3schools/xml/plant_catalog.xml}
+
+```{r}
+library(XML)
+myLink <- "http://www.xmlfiles.com/examples/simple.xml"
+page <- xmlParse(myLink)
+str(page)
+```
+
+We can then get all the nodes starting with the root and pull out the values.
+
+```{r}
+dataTop <- xmlRoot(page)
+data <- xmlSApply(dataTop, function(x) xmlSApply(x, xmlValue))
+data <- data.frame(t(data), row.names = NULL)
+data
+```
+
+Another interesting example is PM expenditures: <http://news.bbc.co.uk/2/hi/uk_politics/8044207.stm>
+
+```{r}
+myLink <- "http://news.bbc.co.uk/2/hi/uk_politics/8044207.stm"
+page <- htmlParse(myLink)
+data <- readHTMLTable(page)
+str(data)
+str(data[[5]])
+
+data <- data[[5]]
+head(data)
+```
+
+## The rvest Package
+
+The rvest package is another package you can use for webscraping.  We will also make use of piping syntax, which requires the magrittr package.  To get started, install the package and load the library.
+
+```{r,eval=F}
+install.packages("rvest")
+library(rvest)
+install.packages("magrittr")
+library(magritr)
+```
+
+```{r,echo=F,message=F,results='hide',warning=FALSE}
+library(rvest)
+library(magrittr)
+```
+
+A handy tool to use when scraping data from the web is the [http://selectorgadget.com/](selector gadget) with Google Chrome internet browser. This tool allows you to dig into the the code behind a webpage, which then allows you to tell R which pieces of of the page you want to read.  The basic steps to use rvest are:
+
+1.  Read in the webpage - *read_html*
+2.  Identify the structure of the webpage and grab a specific piece of it - *html_nodes*
+3.  Convert that piece into an object you can work with - *html_text* or *html_table*
+
+The trickiest part to this process is identifying the correct node in the html source code, which is where the selector gadget is useful.  To do so
+
+1.  Open the web page in Google Chrome.
+2.  Click on the Selector Gadget.
+3.  Click on the pieces of the web page that you want to grab.  Pieces that are highlighted in yellow are what you will get.  If you want to unhighlight pieces, click again and and it will turn to red.
+4.  In the bottom right hand corner of Chrome, click on the CSS code.
+
+Let's walk through three examples, courtesy of the rvest video projects.
+
+###Example 1: Getting the weather forecast
+
+Webpage: [SLO weather forecast](http://forecast.weather.gov/MapClick.php?lat=35.2961&lon=-120.6531#.Vw3BKTArKUk)
+
+```{r,tidy=F}
+#Step 0 - assign the weblink to an object
+weatherurl<-
+  "http://forecast.weather.gov/MapClick.php?lat=35.2961&lon=-120.6531#.Vw3BKTArKUk"
+
+#Step 1 - read the webpage into R
+weatherlink <- read_html(weatherurl)
+
+#Step 2 - identify the structure of the webpage, establish which piece you want to grab by the css code
+forecasthtml <- html_nodes(weatherlink, css="#detailed-forecast-body b , .forecast-text")
+
+#Step 3 - extract text from the node
+forecasttext <- html_text(forecasthtml)
+
+#Combine all text for a paragraph form of the weather forecast
+paste(forecasttext, collapse =" ")
+```
+
+Here is how we can replicate the code using piping.  With this syntax, the object on the left hand side of the operator is passed as an argument in the function on the right hand side.  
+```{r,eval=F}
+forecasttext <- weatherurl %>% 
+                read_html() %>% 
+                html_nodes(css="#detailed-forecast-body b , .forecast-text") %>% 
+                html_text()
+```
+
+
+###Example 2: Cal Poly admissions data
+
+Webpage: [Cal Poly Admissions](http://admissions.calpoly.edu/prospective/profile.html)
+
+```{r,tidy=F}
+#Step 0 - assign the weblink to an object
+admissionsurl<-
+  "http://admissions.calpoly.edu/prospective/profile.html"
+
+#Step 1 - read the webpage into R
+admissionslink <- read_html(admissionsurl)
+
+#Step 2 - identify the structure of the webpage, establish which piece you want to grab by the css code
+admissionshtml <- html_nodes(admissionslink, css="table")
+
+#Step 3 - extract tables from the node
+admissionsdata <- html_table(admissionshtml)
+
+#extract table 1
+admissionsdata[[1]]
+```
+
+Code replicated with piping:
+```{r,eval=F}
+freshman <- admissionsurl %>% 
+            read_html() %>% 
+            html_nodes(css="table") %>% 
+            html_table() %>%
+            .[[1]]
+```
+
+###Example 3: NFL quarterback statistics
+
+Webpage: [NFL quarterbacks](http://www.nfl.com/stats/categorystats?tabSeq=1&statisticPositionCategory=QUARTERBACK&season=2015&seasonType=REG)
+
+```{r}
+#Step 0 - assign the weblink to an object
+qburl<-
+  "http://www.nfl.com/stats/categorystats?tabSeq=1&statisticPositionCategory=QUARTERBACK&season=2015&seasonType=REG"
+
+#Step 1 - read the webpage into R
+qblink <- read_html(qburl)
+
+#Step 2 - identify the structure of the webpage, establish which piece you want to grab by the css code
+qbhtml <- html_nodes(qblink, css="#result")
+
+#Step 3 - extract tables from the node
+qbdata <- html_table(qbhtml)
+
+#extract table 1
+head(qbdata[[1]])
+```
+
+Code replicated with piping:
+```{r,eval=F}
+qbs <- qburl %>% 
+       read_html() %>% 
+       html_nodes(css="#result") %>% 
+       html_table() %>%
+      .[[1]]
+```
+
+###Notes:
+
+* Using the selector gadget takes patience and practice!
+* You can also right link on a webpage and inspect to see the css code.  That may or may not be easier than using the selector gadget.
+* Rather than using the css code, you can use xpath code as well.  If you do this, you need to specify xpath in html_nodes.
+* Some weblinks, css, or xpath may have quotes in them, in which case you should use single quotes to assign the weblink to an object.
