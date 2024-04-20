@@ -14,9 +14,6 @@ execute:
 source("../scripts/window_dressing.R")
 
 library(tidyverse)
-library(flair)
-library(lubridate)
-library(gganimate)
 ```
 
 ```{r}
@@ -57,11 +54,11 @@ Now, follow the code on the site below to connect to and access the chinook.db f
 req_read("SQLite Example", url = "https://db.rstudio.com/databases/sqlite/")
 ```
 
-**Notes:**
-
+:::{.callout-note}
 - You do NOT need to install the latest development version of the `RSQLite` package.
 - Instead of ":memory:" inside your `dbConnect()` function, you should specify the path to your chinook.db file including the filename itself.
-- You do NOT need to write or use SQL code to access and work with the database. You can store the results of `db` functions in variables in the `R` environment or even pipe them into other pipe-friendly functions.
+  * You can use `here()` to navigate to your database! 
+:::
 
 ```{r}
 #| label: checkin-database
@@ -70,11 +67,19 @@ req_read("SQLite Example", url = "https://db.rstudio.com/databases/sqlite/")
 checkin("Chinook Database")
 ```
 
-a) How many observations / rows are in the `employees` table?
+:::{.callout-warning}
+You do NOT need to write or use SQL code to access and work with the database. You can store the results of `db` functions in variables in the `R` environment or even pipe them into other pipe-friendly functions.
+:::
 
-b) How many different job titles are included in the `employees` table?
+1. How many observations / rows are in the `employees` table?
 
-c) What is the average of the `Total` variable in the `invoices` table?
+:::{.callout-tip}
+You might find the `dbReadTable()` function helpful!
+:::
+
+2. How many different job titles are included in the `employees` table?
+
+3. What is the average of the `Total` variable in the `invoices` table? **Round your answer to two decimal places!**
 
 
 Before you finish this portion of the coursework, take a moment to run `?dbConnect` and notice that with this function you have the ability to connect to all sorts of external data sources that may require more credentials or authentication.
@@ -112,6 +117,12 @@ For our class we're not interested in **creating** APIs, but mostly **using** th
 req_read("R API Tutorial", url = "https://www.dataquest.io/blog/r-api-tutorial/")
 ```
 
+:::{.callout-warning}
+# Wrong URL
+
+The tutorial references the wrong link to access the API on the number of people in space. The correct link is: <http://api.open-notify.org/astros.json>
+:::
+
 ```{r}
 #| label: checkin-api
 #| results: asis
@@ -119,21 +130,40 @@ req_read("R API Tutorial", url = "https://www.dataquest.io/blog/r-api-tutorial/"
 checkin("R API Tutorial")
 ```
 
-a) What two packages did the tutorial make use of?
+4. What two packages did the tutorial make use of?
 
 * rvest and jsonlite
 * httr and jsonlite
 * httr and rvest
+* httr and tidyjson
 * XML and rvest
 
-b) What type of request will we likely start with when getting data from an API?
+5. What type of request will we likely start with when getting data from an API?
 
-* PULL
-* GIMME
-* GET
-* SUMMON
+* `PULL()`
+* `GIMME()`
+* `GET()`
+* `SUMMON()`
 
-c) How many people are currently aboard the International Space Station?
+6. If `GET()` successfully requested information from the API, what `status` should you see in the response object?
+
+7. How many people are currently aboard the International Space Station?
+
+```{r}
+#| label: space-station
+#| eval: false
+
+library(httr)
+library(tidyjson)
+
+res <- GET("http://api.open-notify.org/astros.json")
+
+space <- res$content %>% 
+  rawToChar() %>% 
+  fromJSON()
+
+space$people
+```
 
 
 
