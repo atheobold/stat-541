@@ -6,36 +6,6 @@ execute:
   echo: true
 ---
 
-## Connecting to a SQL database
-
-```{r}
-library(tidyverse)
-library(DBI)
-```
-
-```{r}
-con <- dbConnect(RSQLite::SQLite(), ":memory:")
-
-dbListTables(con)
-```
-
-#### YOUR TURN
-
-```{r}
-con <- dbConnect(RMySQL::MySQL(), 
-                 user = 'kbodwin', 
-                 password = 'vineyard', 
-                 dbname = 'vineyard_diversity',
-                 host = 'vineyard-project.cnmgssyjqpsv.us-west-1.rds.amazonaws.com',
-                 port = 3306)
-
-src_dbi(con)
-```
-
-```{r}
-dbListTables(con)
-```
-
 ## Using APIs
 
 ```{r}
@@ -49,14 +19,17 @@ res = GET("https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/ac
 head(res)
 ```
 
-
 ```{r}
 data = rawToChar(res$content)
 head(data)
 ```
 
 ```{r}
-data = fromJSON(rawToChar(res$content))
+data = fromJSON(
+  rawToChar(
+    res$content
+    )
+  )
 names(data)
 ```
 
@@ -64,11 +37,8 @@ names(data)
 head(data$data)
 ```
 
-
 #### YOUR TURN
 
 Pick your favorite public API: https://github.com/public-apis/public-apis
 
 Make a visualization from the data you query.
-
-

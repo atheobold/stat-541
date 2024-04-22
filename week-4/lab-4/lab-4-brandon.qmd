@@ -1,0 +1,101 @@
+---
+title: "Lab 4"
+subtitle: "Key by Brandon Kim"
+format: html
+editor: visual
+execute: 
+  warning: false
+  message: false
+---
+
+```{r libraries}
+library(tidyverse)
+library(httr)
+library(jsonlite)
+library(leaflet)
+```
+
+## PART 1
+
+```{r read table}
+df_states <- read.table(here::here("states.txt"), sep='\t')
+df_capitals <- read.table(here::here("capitals.txt"), sep='\t')
+```
+
+```{r data cleaning}
+df_states <- df_states %>%
+  separate(V1, c("state", "lat", "long"), sep = "\\s+") %>%
+  mutate(long = ifelse(state == "US", as.character(as.numeric(long) * -1), long))
+
+df_capitals <- df_capitals %>%
+  separate(V1, c("state", "capital"), sep = "  ")
+
+dat <- merge(x=df_states, y=df_capitals, by="state")
+```
+
+```{r api calls}
+start1 <- c()
+start2 <- c()
+start3 <- c()
+
+for(i in 1:nrow(dat)) {
+  res = GET(paste("https://api.g7vrd.co.uk/v1/satellite-passes/25544/", dat[i,2], "/", dat[i,3], ".json?hours=72", sep=""))
+  data = fromJSON(rawToChar(res$content))
+
+  if (!is.null(nrow(data$passes))) {
+    start1 <- append(start1, ifelse(nrow(data$passes) < 1, NA, data$passes[1,1]))
+    start2 <- append(start2, ifelse(nrow(data$passes) < 2, NA, data$passes[2,1]))
+    start3 <- append(start3, ifelse(nrow(data$passes) < 3, NA, data$passes[3,1]))
+  }
+  else {
+    start1 <- append(start1, NA)
+    start2 <- append(start2, NA)
+    start3 <- append(start3, NA)
+  }
+  
+  Sys.sleep(0.5)
+}
+```
+
+```{r converting dates and more data cleaning for future sections}
+dat$first_pass = start1 
+dat$second_pass = start2
+dat$third_pass = start3
+
+dat <- dat %>%
+  mutate(first_pass = gsub('.{5}$', '', str_replace(first_pass, "T", " ")),
+         second_pass = gsub('.{5}$', '', str_replace(second_pass, "T", " ")),
+         third_pass = gsub('.{5}$', '', str_replace(third_pass, "T", " ")),
+         lat = as.numeric(lat), 
+         long = as.numeric(long)) %>%
+  arrange(first_pass)
+```
+
+## PART 2
+
+```{r icon}
+satellite_icon <- makeIcon(iconUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Transiting_Exoplanet_Survey_Satellite_artist_concept_%28transparent_background%29.png/1024px-Transiting_Exoplanet_Survey_Satellite_artist_concept_%28transparent_background%29.png",
+    iconWidth = 20, iconHeight = 20)
+```
+
+```{r leaflet}
+leaflet() %>%
+  addTiles() %>%
+  addMarkers(lng = jitter(dat$long, factor = 2), lat = jitter(dat$lat,
+    factor = 2), icon = satellite_icon, popup = paste(dat$capital, "<br>", "First Predicted Pass Time: ",
+    dat$first_pass, "<br>", "Second Predicted Pass Time: ", dat$second_pass, "<br>", "Third Predicted Pass Time: ",
+    dat$third_pass), label = paste(dat$capital, "'s", " Next Predicted Pass Time: ", dat$first_pass, sep = ""))
+```
+
+## Part 3 
+
+```{r polylines}
+leaflet(data = {dat %>% filter(!is.na(first_pass))}) %>%
+  addTiles() %>%
+  addPolylines(lat = ~lat, lng = ~long, color = "red", weight=2)
+```
+
+
+
+
+

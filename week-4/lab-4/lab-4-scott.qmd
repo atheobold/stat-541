@@ -1,0 +1,105 @@
+---
+title: "Lab 4"
+subtitle: "Scott"
+format: html
+editor: visual
+---
+
+```{r}
+#| message: false
+library(httr)
+library(jsonlite)
+library(stringr)
+library(leaflet)
+library(here)
+library(readr)
+library(tidyverse)
+library(parsedate)
+```
+
+## Pass Times for US Capitals
+
+```{r}
+#| warning: false
+#| message: false
+state_cap_coords <- read_table(here("state_capitals_ll.txt"), col_names = FALSE)
+state_cap_names <- read_table(here("state_capitals_name.txt"), col_names = FALSE)
+states_info <- left_join(state_cap_names, state_cap_coords, by = "X1")
+states_info <- states_info %>% 
+  rename(latitude = X2.y,
+         longitude = X3,
+         capitals = X2.x,
+         states = X1) %>% 
+  mutate(capitals = str_remove_all(capitals, '"'))
+```
+
+```{r}
+#| echo: false
+#| message: false
+states_info <- states_info |>
+  mutate(link = paste0('https://api.g7vrd.co.uk/v1/satellite-passes/25544/',states_info$latitude,'/',states_info$longitude,'.json',sep =''))
+
+
+linkconvertStart <- function(address){
+res <- GET(address)
+res <- fromJSON(content(res, as = "text"))
+response <- res$passes
+responseCheck <- ifelse(class(response) == "list", "N/A", response[1,1])
+return(responseCheck)
+}
+
+linkconvertTca <- function(address){
+res <- GET(address)
+res <- fromJSON(content(res, as = "text"))
+response <- res$passes
+responseCheck <- ifelse(class(response) == "list", "N/A", response[1,2])
+return(responseCheck)
+}
+
+linkconvertEnd <- function(address){
+res <- GET(address)
+res <- fromJSON(content(res, as = "text"))
+response <- res$passes
+responseCheck <- ifelse(class(response) == "list", "N/A", response[1,3])
+return(responseCheck)
+}
+
+states_info$Start <- parse_iso_8601(sapply(states_info$link, linkconvertStart))
+states_info$Tca <- parse_iso_8601(sapply(states_info$link, linkconvertTca))
+states_info$End <- parse_iso_8601(sapply(states_info$link, linkconvertEnd))
+```
+
+## Mapping the Data
+
+```{r}
+uncle_sam_icon <- makeIcon(iconUrl = "https://www.clipartmax.com/png/small/465-4659277_transparent-png-image-clipart-free-download-uncle-sam-hat-png.png",
+    iconWidth = 15, iconHeight = 15)
+# MAP
+leaflet() %>%
+  addTiles() %>%
+  setView(-98.483330, 38.712046, zoom = 3) %>% 
+  addMarkers(icon = uncle_sam_icon, 
+             lat = states_info$latitude, 
+             lng = states_info$longitude,
+             label = paste(states_info$capitals, " - ", 
+                           "Last predicted pass: ", states_info$Tca),
+             popup = paste(states_info$capitals, "<br>", "Start predicted pass: ", states_info$Start, "<br>", 
+                           "Peak predicted pass: ", states_info$Tca, "<br>", 
+                           "End predicted pass: ", states_info$End
+                           ))
+```
+
+
+```{r }
+# MAP
+
+states_info_sorted <- states_info %>% 
+  arrange(longitude)
+
+#Using the Polylines function to draw a line with the sorted data.
+
+leaflet() %>%
+  addTiles() %>%
+  setView(-98.483330, 38.712046, zoom = 3) %>% 
+  addPolylines(data = states_info_sorted, lat = ~latitude, lng = ~longitude, color = "red")
+```
