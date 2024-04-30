@@ -1,0 +1,17 @@
+---
+title: "Lab 4 Grading Guide"
+format: html
+editor: visual
+---
+
+| Learning Objective           | Mastery | Proficient | Novice |
+|------------------------------|---------|------------|--------|
+| DM-3: APIs                   |         |            |        |
+| DM-2: Iteration              |         |            |        |
+| DM-1: Data Cleaning          |         |            |        |
+| CD-3: Helper Functions       |         |            |        |
+| CD-1: Vectorized Functions   |         |            |        |
+| CD-2: Intermediate Objects   |         |            |        |
+| TC-2: Function Documentation |         |            |        |
+| PV-3: leaflet                |         |            |        |
+| RW-2: Quarto Document        |         |            |        |
