@@ -36,8 +36,8 @@ make_summary_table(vid_time = "6 min",
 
 After this lesson, you should be able to:
 
-- Use CSS Selectors and the Selector Gadget tool to locate data of interest within a webpage
-- Use the `html_elements()` and `html_text()` functions within the `rvest` packages to scrape data from webpage using CSS selectors
+-   Use CSS Selectors and the Selector Gadget tool to locate data of interest within a webpage
+-   Use the `html_elements()` and `html_text()` functions within the `rvest` packages to scrape data from webpage using CSS selectors
 
 # Web scraping
 
@@ -45,10 +45,10 @@ We have talked about how to acquire data from APIs. Whenever an API is available
 
 Web scraping describes the use of code to extract information displayed on a web page. In R, the `rvest` package (meant to sound like "harvest") offers tools for scraping.
 
-Additional readings:  
+Additional readings:
 
-- [rvest](https://cran.r-project.org/web/packages/rvest/vignettes/rvest.html)
-- [CSS selectors](https://css-tricks.com/how-css-selectors-work/)
+-   [rvest](https://cran.r-project.org/web/packages/rvest/vignettes/rvest.html)
+-   [CSS selectors](https://css-tricks.com/how-css-selectors-work/)
 
 ## Scraping ethics
 
@@ -60,11 +60,11 @@ We will look through the information in [this tutorial](https://www.zenrows.com/
 
 From our investigation of the NIH `robots.txt`, we learn:
 
-- `User-agent: *`: Anyone is allowed to scrape
-- `Crawl-delay: 2`: Need to wait 2 seconds between each page scraped
-- No `Visit-time` entry: no restrictions on time of day that scraping is allowed
-- No `Request-rate` entry: no restrictions on simultaneous requests
-- No mention of `?page=`, `news-events`, `news-releases`, or `https://science.education.nih.gov/` in the `Disallow` sections. (This is what we want to scrape today.)
+-   `User-agent: *`: Anyone is allowed to scrape
+-   `Crawl-delay: 2`: Need to wait 2 seconds between each page scraped
+-   No `Visit-time` entry: no restrictions on time of day that scraping is allowed
+-   No `Request-rate` entry: no restrictions on simultaneous requests
+-   No mention of `?page=`, `news-events`, `news-releases`, or `https://science.education.nih.gov/` in the `Disallow` sections. (This is what we want to scrape today.)
 
 ### Further considerations
 
@@ -74,7 +74,6 @@ The article [Ethics in Web Scraping](https://towardsdatascience.com/ethics-in-we
 
 HTML (hypertext markup language) is the formatting language used to create webpages. Let's look at the core parts of HTML from the [rvest vignette](https://cran.r-project.org/web/packages/rvest/vignettes/rvest.html).
 
-
 ## Finding CSS Selectors
 
 In order to gather information from a webpage, we must learn the language used to identify patterns of specific information. For example, on the [NIH News Releases page](https://www.nih.gov/news-events/news-releases), we can see that the data is represented in a consistent pattern of image + title + abstract.
@@ -83,18 +82,17 @@ We will identify data in a web page using a pattern matching language called [CS
 
 For example:
 
-- Selecting by tag:
-    - `"a"` selects all hyperlinks in a webpage ("a" represents "anchor" links in HTML)
-    - `"p"` selects all paragraph elements
+-   Selecting by tag:
+    -   `"a"` selects all hyperlinks in a webpage ("a" represents "anchor" links in HTML)
+    -   `"p"` selects all paragraph elements
+-   Selecting by ID and class:
+    -   `".description"` selects all elements with `class` equal to "description"
+        -   The `.` at the beginning is what signifies `class` selection.
+        -   This is one of the most common CSS selectors for scraping because in HTML, the `class` attribute is extremely commonly used to format webpage elements. (Any number of HTML elements can have the same `class`, which is not true for the `id` attribute.)
+    -   `"#mainTitle"` selects the SINGLE element with **id** equal to "mainTitle"
+        -   The `#` at the beginning is what signifies `id` selection.
 
-- Selecting by ID and class:
-    - `".description"` selects all elements with `class` equal to "description"
-        - The `.` at the beginning is what signifies `class` selection.
-        - This is one of the most common CSS selectors for scraping because in HTML, the `class` attribute is extremely commonly used to format webpage elements. (Any number of HTML elements can have the same `class`, which is not true for the `id` attribute.)
-    - `"#mainTitle"` selects the SINGLE element with **id** equal to "mainTitle"
-        - The `#` at the beginning is what signifies `id` selection.
-
-```html
+``` html
 <p class="title">Title of resource 1</p>
 <p class="description">Description of resource 1</p>
 
@@ -102,14 +100,13 @@ For example:
 <p class="description">Description of resource 2</p>
 ```
 
-
 **Warning**: Websites change often! So if you are going to scrape a lot of data, it is probably worthwhile to save and date a copy of the website. Otherwise, you may return after some time and your scraping code will include all of the wrong CSS selectors.
 
-Although you can [learn how to use CSS Selectors by hand]([CSS Selectors](https://css-tricks.com/how-css-selectors-work/)), we will use a shortcut by installing the [Selector Gadget](http://selectorgadget.com/) tool.
+Although you can [learn how to use CSS Selectors by hand](%5BCSS%20Selectors%5D(https://css-tricks.com/how-css-selectors-work/)), we will use a shortcut by installing the [Selector Gadget](http://selectorgadget.com/) tool.
 
-- There is a version available for Chrome--add it to Chrome via the [Chome Web Store](https://chromewebstore.google.com/detail/selectorgadget/mhjhnkcfbdhnjickkkdbjoemdmbfginb).
-    - Make sure to pin the extension to the menu bar. (Click the 3 dots > Extensions > Manage extensions. Click the "Details" button under SelectorGadget and toggle the "Pin to toolbar" option.)
-- There is also a version that can be saved as a bookmark in the browser--see [here](https://rvest.tidyverse.org/articles/selectorgadget.html).
+-   There is a version available for Chrome--add it to Chrome via the [Chome Web Store](https://chromewebstore.google.com/detail/selectorgadget/mhjhnkcfbdhnjickkkdbjoemdmbfginb).
+    -   Make sure to pin the extension to the menu bar. (Click the 3 dots \> Extensions \> Manage extensions. Click the "Details" button under SelectorGadget and toggle the "Pin to toolbar" option.)
+-   There is also a version that can be saved as a bookmark in the browser--see [here](https://rvest.tidyverse.org/articles/selectorgadget.html).
 
 ```{r, results = "asis", echo = FALSE}
 req_vid("Selector Gadget Tutorial Video", url = 'http://selectorgadget.com/', 
@@ -120,17 +117,17 @@ req_vid("Selector Gadget Tutorial Video", url = 'http://selectorgadget.com/',
 checkin("Selector Gadget")
 ```
 
-Head over to the [NIH News Releases page](https://www.nih.gov/news-events/news-releases). Click the Selector Gadget extension icon or bookmark button. As you mouse over the webpage, different parts will be highlighted in orange. 
+Head over to the [NIH News Releases page](https://www.nih.gov/news-events/news-releases). Click the Selector Gadget extension icon or bookmark button. As you mouse over the webpage, different parts will be highlighted in orange.
 
-1. What CSS selector would you use to obtain the title of each article?
+1.  What CSS selector would you use to obtain the title of each article?
 
 <!-- .teaser-title -->
 
-2. What CSS selector would you use to obtain the publication date of each article?
+2.  What CSS selector would you use to obtain the publication date of each article?
 
 <!-- .date-display-single -->
 
-3. What CSS selector would you use to obtain the article abstract paragraph (which will also include the publication date)?
+3.  What CSS selector would you use to obtain the article abstract paragraph (which will also include the publication date)?
 
 <!-- .teaser-description -->
 
@@ -157,37 +154,36 @@ article_titles <- nih %>%
 head(article_titles)
 ```
 
-## Iteration 
+## Iteration
 
 Our goal is to get article titles, publication dates, and abstract text for news releases across several pages of results. **Before doing any coding,** let's plan our approach!
 
-- What functions will you write? 
-  * We probably need a function to grab the text from the page.
-  * We can then use this function to grab different parts of an HTML page and piece them together
-  
-- What arguments will they have? 
-  * The function grabbing text should have two inputs, (1) the page and (2) the CSS selector to use
-  * The function scraping the page should probably only take one input: the page
-  
-- How will you use your functions? 
-  * These functions need to be iterated! We would need to call the function to scrape a page once for each page we want to scrape. 
+-   What functions will you write?
+    -   We probably need a function to grab the text from the page.
+    -   We can then use this function to grab different parts of an HTML page and piece them together
+-   What arguments will they have?
+    -   The function grabbing text should have two inputs, (1) the page and (2) the CSS selector to use
+    -   The function scraping the page should probably only take one input: the page
+-   How will you use your functions?
+    -   These functions need to be iterated! We would need to call the function to scrape a page once for each page we want to scrape.
 
 ```{r, results = "asis", echo = FALSE}
 checkin("Iteration")
 ```
 
-Let's carry out this plan to get the article title, publication date, and abstract text for the first five pages of news releases in a single data frame. You will need to write at least one function, and you will need iteration---either a `for` loop or the appropriate `map_()` functions. 
+Let's carry out this plan to get the article title, publication date, and abstract text for the first five pages of news releases in a single data frame. You will need to write at least one function, and you will need iteration---either a `for` loop or the appropriate `map_()` functions.
 
-Advice: 
+Advice:
 
-- Mouse over the page buttons at the very bottom of the news home page to see what the URLs look like.
-- The abstract should not have the publication date--use `stringr` and regular expressions to remove the publication date.
-- Include `Sys.sleep(2)` in your function to respect the `Crawl-delay: 2` in the NIH `robots.txt` file.
-- Recall that `bind_rows()` from `dplyr` takes a list of data frames and stacks them on top of each other.
+-   Mouse over the page buttons at the very bottom of the news home page to see what the URLs look like.
+-   The abstract should not have the publication date--use `stringr` and regular expressions to remove the publication date.
+-   Include `Sys.sleep(2)` in your function to respect the `Crawl-delay: 2` in the NIH `robots.txt` file.
+-   Recall that `bind_rows()` from `dplyr` takes a list of data frames and stacks them on top of each other.
 
 <details>
-  <summary>Solution</summary>
-  
+
+<summary>Solution</summary>
+
 ```{r}
 #| label: ex_solns_fcts
 
@@ -230,7 +226,7 @@ Using a for-loop:
 #| eval: false
 #| label: ex_solns_for-loop
 
-# Create an empyt list for the first five pages
+# Create an empty list for the first five pages
 pages <- vector("list", length = 5)
 
 for (i in 1:5) {
