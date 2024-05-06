@@ -1,5 +1,5 @@
 ---
-title: "Lab 6"
+title: "Lab 5"
 format: html
 embed-resources: true
 editor: visual
@@ -53,21 +53,20 @@ print(cheese_df)
 
 **Part 4:** Obtain the following information for **all** cheeses in the database:
 
-- Cheese name
-- URL for the cheese's webpage (e.g., <https://www.cheese.com/gouda/>)
-- Whether or not the cheese has a picture (e.g., [gouda](https://www.cheese.com/gouda/) has a picture, but [bianco](https://www.cheese.com/bianco/) does not)
+-   Cheese name
+-   URL for the cheese's webpage (e.g., <https://www.cheese.com/gouda/>)
+-   Whether or not the cheese has a picture (e.g., [gouda](https://www.cheese.com/gouda/) has a picture, but [bianco](https://www.cheese.com/bianco/) does not)
 
 To be kind to the website owners, please add a 1 second pause between page queries. (Note that you can view 100 cheeses at a time.)
 
-**Part 5:** When you go to a particular cheese's page (like [gouda](https://www.cheese.com/gouda/)), you'll see more detailed information about the cheese. For [**just 10**]{.underline} of the cheeses in the database, obtain the following detailed information: 
+**Part 5:** When you go to a particular cheese's page (like [gouda](https://www.cheese.com/gouda/)), you'll see more detailed information about the cheese. For [**just 10**]{.underline} of the cheeses in the database, obtain the following detailed information:
 
-- milk information
-- country of origin
-- family
-- type
-- flavour 
+-   milk information
+-   country of origin
+-   family
+-   type
+-   flavour
 
 (Just 10 to avoid overtaxing the website! Continue adding a 1 second pause between page queries.)
 
 **Part 6:** Evaluate the code that you wrote in terms of the [core principle of good function writing](function-strategies.qmd). To what extent does your implementation follow these principles? What are you learning about what is easy / challenging for you about approaching complex tasks requiring functions and loops?
-
