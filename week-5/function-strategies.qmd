@@ -1,0 +1,102 @@
+---
+title: "Coding strategies and principles"
+format:
+  html:
+    number-sections: true
+    number-depth: 2
+embed-resources: true
+editor: visual
+---
+
+# Core principle of writing good functions
+
+> **A function should complete a single small task**
+
+Applying this principle takes hard work, but it will make your code easier to read, debug, and reuse.
+
+"Single" and "small" are hard to get a sense of, so let's look at solutions from our previous scraping activity:
+
+```{r eval=FALSE}
+#| eval: false
+#| label: examples-of-small-functions
+
+# Helper function to reduce html_elements() %>% html_text() code duplication
+get_text_from_page <- function(page, css_selector) {
+    page %>%
+        html_elements(css_selector) %>%
+        html_text()
+}
+
+scrape_page <- function(url) {
+    
+    # Respect the 2 second crawl delay in the NIH robots.txt file
+    Sys.sleep(2)
+    
+    # Read the page
+    page <- read_html(url)
+    
+    # Grab elements from the page
+    article_titles <- get_text_from_page(page, ".teaser-title")
+    article_dates <- get_text_from_page(page, ".date-display-single")
+    article_abstracts <- get_text_from_page(page, ".teaser-description")
+    
+    # Clean article abstracts!
+    # regex: starts with (^) any character (.) with any number of matches (+) before the "-" character
+    article_abstracts <- str_remove(article_abstracts, "^.+—") %>% trimws()
+    
+    # Put page elements into a dataframe
+    tibble(
+        title = article_titles,
+        date = article_dates,
+        abstract = article_abstracts
+    )
+}
+```
+
+`get_text_from_page()` does a single small task--it gets the contents from a single CSS selector
+
+- This facilitates its **reuse**: we can easily use this function in another context
+- It's easily **debugged** and **understandable** because it's so short.
+
+If you only call your function once, you need to revise your code to have your functions do smaller tasks.
+
+- Looping probably should not be done inside a function. Rather, we will generally want to call functions from inside loops.
+  * Why? When you are looping, you are doing a task over and over. That task can be turned into a function.
+  * If you find yourself writing a loop within a function, you likely need to write a helper function.
+
+Example of how this might come about:
+
+```{r eval=FALSE}
+get_all_news_info <- function(url, title_selector, date_selector, abstract_selector, num_pages) {
+    for (i in seq_len(num_pages)) {
+        # Construct url for page i
+        # page <- read_html()
+        # get_text_from_page(page, title_selector)
+        # get_text_from_page(page, date_selector)
+        # get_text_from_page(page, abstract_selector)
+    }
+}
+```
+
+- This function does many tasks (gets many pages) instead of a single task (just one page).
+
+
+# Core principles of navigating ChatGPT output
+
+ChatGPT is a useful tool, but it is important to be mindful of the following principles.
+
+> Whenever you see a new function, look up the documentation. Understand how all of the arguments used in the ChatGPT output. For any function that is new to you, you should be able to explain its usage with a few new examples.
+
+Note the part where you look up the documentation for any function you are not familiar with, so you are able to explain what it does! 
+
+</br>
+
+> In addition to understanding the output, evaluate if the output follows good coding principles, like having a function doing a single, small task.
+
+A classic "tell" of ChatGPT code are functions written inside of functions. This is **does not** follow good coding principles! 
+
+</br>
+
+> Creating a full suite of test cases still applies when using ChatGPT output.
+
+Test out the code before you use it! 
