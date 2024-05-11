@@ -69,4 +69,4 @@ To be kind to the website owners, please add a 1 second pause between page queri
 
 (Just 10 to avoid overtaxing the website! Continue adding a 1 second pause between page queries.)
 
-**Part 6:** Evaluate the code that you wrote in terms of the [core principle of good function writing](function-strategies.qmd). To what extent does your implementation follow these principles? What are you learning about what is easy / challenging for you about approaching complex tasks requiring functions and loops?
+**Part 6:** Evaluate the code that you wrote in terms of the [core principle of good function writing](function-strategies.html). To what extent does your implementation follow these principles? What are you learning about what is easy / challenging for you about approaching complex tasks requiring functions and loops?
