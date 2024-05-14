@@ -1,16 +1,13 @@
 ---
-title: "Lab 4 Instructions"
-author: "Stat 431"
-output: rmdformats::readthedown
+title: "Project 2"
+format: 
+  html:
+    number-sections: true
+embed-resources: true
+editor: visual
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-## Intro
-
-In this lab, you (and possibly a group) will create your very own small R Package!
+In this project, you and your group will create your very own **small** R Package!
 
 Start brainstorming ideas for what you want your package to do.  There are no 
 restrictions here - whatever you are excited to work on or think would be useful
@@ -19,21 +16,18 @@ is acceptable.
 Here are some ideas to get you started:
 
 * A package that makes shortcut functions for common data wrangling pipelines.
-* A package that makes shortcut functions for particular types of plots, or common
-combinations of plots.
+* A package that makes shortcut functions for particular types of plots, or
+common combinations of plots.
 * A package that creates some new ggplot themes.
-* A package with functions that automatically pull updated data from an API and 
-perform certain analyses.
-* A package that takes user-provided text file and performs interesting text 
-analyses.
-* A package that teaches or explains basic statistical concepts.
-* (If you're feeling ambitious) A package that makes [new R Markdown formats and/or
-templates.](https://bookdown.org/yihui/rmarkdown/new-formats.html)
+  - The [ggthemes package](https://github.com/jrnold/ggthemes/) does this, but
+  is much more than I am envisioning you will do for this project!
+  
+* A package that generates fun quotes.
+  - The [praise package](https://github.com/rladies/praise/tree/master) is one of my favorite examples of a package that generates quotes. 
+  - Before I got a new keyboard with emojis on it (best choice I've made in a long time!), I frequently used the [emo package](https://github.com/hadley/emo)
 
-
-(It is definitely okay if your package duplicate parts of existing
-packages, as long as all your code is your own.)
-
+It is definitely okay if your package duplicate parts of existing packages, as
+long as all your code is your own.
 
 ## What's in a name?
 
@@ -50,46 +44,45 @@ The R community also likes to have some fun with package names; if your package
 is a pun (like `lubridate`) or uses the letter R in a fun way (like `purrr`),
 it is even easier to remember and to market.
 
-
 ## Create the basic folder structure
-
 
 **Everyone** in your group should first make sure they have the important packages
 installed:
 
-```{r, eval = FALSE}
+```{r}
+#| label: important-packages
+#| echo: true
+#| eval: false
+
 install.packages(c("devtools", "usethis", "roxygen2", "testthat", "knitr"))
 ```
 
-Your **group leader** will now need to create the initial empty
-package.  We recommend that the other group members try this out as well, for 
-practice, or that the group leader uses a Video Chat app to screenshare during
-this process.
+You need to choose **one person** to create the initial empty package. I 
+recommend other group members try this out as well for practice, or the 
+person creating the empty package shares their screen for their group to
+watch. 
 
-#### STEP ONE:
-Make a Git Repository somewhere on your computer (the Desktop, or your Stat 431 
+### Step One: 
+
+Make a Git Repository somewhere on your computer (the Desktop, or your Stat 541 
 folder, would be good choices).  
 
-Name this repository the same name as your package.
+Name this repository the same name as your package. When making the repository, 
+select the following options:
 
-We recommend using *GitHub Desktop* or similar to do this:
-
-![](../Images/new_git_repo.gif)
-
-Select the following options:
 * *Initialize Repository with a ReadMe:*  Check the box.
 * *Git Ignore:* R
 * *License:* MIT
 
+### Step Two:
 
-
-#### STEP TWO:
 Figure out the *path* to your new repository folder.  This might look something like
+
 ```
 /Users/reginageorge/Desktop/meangirls/
 ```
 
-In your *console*, run the following:
+In your ***console***, run the following:
 
 ```{r, eval = FALSE}
 library(usethis)
@@ -98,60 +91,68 @@ create_package("/Users/reginageorge/Desktop/meangirls/")
 
 (but of course, replace the path with your own path)
 
-#### STEP THREE:
+### Step Three:
+
 Set up some preliminaries.
 
 We'll now walk through a couple `usethis` functions that make your package-building
 life easier.  In the RStudio project that opened automatically for your package
 run each of the following code chunks in your console.
 
+```{r}
+#| eval: false
+#| label: documentation
 
-```{r, eval = FALSE}
-use_mit_license("Your Name")
-```
-*This function establishes an open-source copyright for the package, in your name.*
-
-```{r, eval = FALSE}
 use_roxygen_md()
 ```
+
 *This function makes it easier to build function documentation automatically, by
 using `#' @param` type comments like you saw in the `meangirls` package.*
 
-```{r, eval = FALSE}
+```{r}
+#| eval: false
+#| label: test-folder
+
 use_testthat()
 ```
 
 *This function sets up the unit test folder for you, like you saw in the `meangirls`
 package*
 
-```{r, eval = FALSE}
+```{r}
+#| eval: false
+#| label: pipe
+
 use_pipe()
 ```
 
-*This function prepares your package to allow you to sue the pipe (`%>%`) in the
+*This function prepares your package to allow you to use the pipe (`%>%`) in the
 functions you write.*
 
+### Step Four:
 
-#### STEP FOUR:
 Commit and push your newly created package to GitHub
 
-#### STEP FIVE:
+### Step Five:
+
 Log in to your GitHub account online.
 
-First, make sure your repository is public.
+First, make sure your repository is public. To change your repository from
+private to public, you need to navigate to the bottom of the "Settings" page!
 
 ![](../Images/make_repo_public.gif)
 
-Then give your group members access to the repository, by adding them as collaborators.
+Then give your group members access to the repository, by adding them as
+collaborators.
 
 ![](../Images/add_collabs.gif)
-
 
 ## How to contribute
 
 **After this point, NOBODY should EVER push changes to the repository directly!!!**
 
-Instead, you should all - including the Group Leader - contribute via *Pull Request.*
+Instead, you should all - including the repository owner - contribute via
+*Pull Request.*
 
 Recall from the coursework practice that the easiest way to do
 this process is with the functions in the `usethis` package:
@@ -161,24 +162,11 @@ needs to be done once per package. The Group Leader will be able to skip this st
 since they will already have the repository on their local computer.)
 * `pr_pull_upstream()` to make sure you are all up-to-date with changes to the repo.
 * `pr_init("branch_name")` to create a new branch for a new set of proposed edits.
-* (Don't forget to *commit* your changes as you work!)
-* `pr_push()` to create a pull request from those edits
+* Don't forget to *commit* your changes as you work!
+* `pr_push()` to create a pull request from those edits (which have been committed!)
 
 Since your whole group has access to the repository, everyone has the power to
 *merge* their own pull request.
-
-#### Trust us on this one
-
-This may seem like a roundabout way to make progress - since everyone has access
-to the repository, why not just push the changes directly?
-
-We promise you that getting in the habit of the "Branch and Pull Request" workflow
-will save you time and headache in the long run.
-
-When all "subprojects" of your repository have their own branch, this prevents
-people frome "breaking" each other's code.  It also makes it much easier to follow
-the thought process of the package, and to "undo" changes if you change your mind
-later.
 
 ### Try it!
 
@@ -189,22 +177,24 @@ Do this one at a time, waiting for the previous Pull Request to be merged before
 starting the next one, to keep from *conflicts* of editing the same file.
 
 If anything in this process feels confusing, or if you run into snags, this is a 
-great time to reach out to your professors for help.
+great time to reach out to your professor for help!
 
 
 ## And you're off to the races!
 
 You're now ready for the fun part: writing your package!
 
+As stated previously, the context /content of your package is up to you, but
+***everyone's*** package must meet the following requirements:
 
-For full credit, your package must meet the following requirements:
+### Package Description
 
-#### Package Description
 The "Title", "Authors", and "Description" section of the `DESCRIPTION` file
 must be properly filled out.  (You may ignore the other fields.)
 
 
-#### Package Functionality
+### Package Functionality
+
 There must be at least three `.R` files in the `/R/` folder.
 
 Each file must contain at least one "major" function - i.e., a function that
@@ -216,7 +206,8 @@ whether to "export" this function or not.
 These do not have to be earth-shattering, game-changing functions!  Anything that
 is well-written and helpful is sufficient, even if the scope is small.
 
-#### Unit tests
+### Unit tests
+
 Every function must have appropriate unit tests written in the `/testthat/` folder.
 
 You can auto-generate the file for a unit test by running
@@ -228,16 +219,18 @@ use_test("function_name")
 All your unit tests should pass.  Recall that you can check this by *building* 
 the package (`Ctrl-Shift-B`) and then *testing* the package (`Ctrl-Shift-T`)
 
-#### Package Documentation
+### Package Documentation
+
 All functions must have proper documentation, using the "roxygen" style comments
 (`#'`).  Refer to the `meangirls` package for examples.
 
-You only need to have:
+Your documentation needs to have: 
+
 * What the function does.
 * The arguments (`@param`)
 * The output (`@return`)
 * Any necessary *dependencies* (`@import` or `@importFrom`)
-* An `@export` statment, if you want the function to be in the Namespace.
+* An `@export` statement, if you want the function to be in the Namespace.
 
 There are many other optional documentation elements, but these are not required.
 
@@ -246,14 +239,3 @@ the documentation files.  (`Ctrl-Shift-D`)
 
 You can check out your documentation by building the package (`Ctrl-Shift-B`),
 and then trying `?function_name`.
-
-
-#### Challenge: CRAN Check
-
-Recall that the requirements for being accepted to CRAN are quite strict. If you 
-want to take this Lab a step further, consider trying to make a package that
-meets these requirements.
-
-You can see if your package is in tip-top shape by clicking the "Check" button
-under the "Build" pane in RStudio.
-
