@@ -1,33 +1,21 @@
 ---
-title: "Week 5:  Writing Fast Code"
-author: "Stat 431"
-output:
-  prettydoc::html_pretty:
-    theme: tactile
-    highlight: github
+title: "Week 8:  Writing Fast Code"
+format: html
+editor: visual
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r}
+#| label: setup
+#| include: false
+
 source(here::here("Canvas_Pages/Scripts/window_dressing.R"))
-quiz_url <- "https://canvas.calpoly.edu/courses/16654/quizzes/14552/"
+
 library(tidyverse)
 library(flair)
 library(tictoc)
 library(microbenchmark)
+
 options(digits = 2)
-```
-
-```{css, echo = FALSE}
-img {
-  vertical-align:middle
-}
-
-body {
-  text-shadow:none;
-}
-
-
 ```
 
 You might be wondering to yourself - why bother with matrices, when we have so many
@@ -444,5 +432,6 @@ extra_rec("")
 * [Make your code run in C++ with Rcpp](http://adv-r.had.co.nz/Rcpp.html#rcpp)
 * Learn to use [recursion](https://techvidvan.com/tutorials/recursion-in-r/)
 * Learn more about [memory allocation](https://adv-r.hadley.nz/names-values.html) and [garbage collecting](http://adv-r.had.co.nz/memory.html) in R.
+
 
 
