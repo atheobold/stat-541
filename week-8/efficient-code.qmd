@@ -382,7 +382,7 @@ d.  It performs fewer iterations.
 **Question 2:** Why is `mean(x)` slower than `sum(x)/length(x)`?
 
 a.  `sum()` is vectorized, while `mean()` is not.
-b.  A sum is a smaller number than a mean, so it needs less memory.
+b.  A mean is a smaller number than a sum, so it needs less memory.
 c.  `mean()` calculates the mean twice just in case.
 d.  `mean()` was written in an old version of R.
 

@@ -3172,7 +3172,7 @@ $ age        &lt;dbl&gt; 86, 83, 81, 79, 78, 78, 78, 77, 76, 76, 75, 74, 74, 73,
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.24 sec elapsed</code></pre>
+<pre><code>0.283 sec elapsed</code></pre>
 </div>
 </div>
 <p>These are all three reasonable things to do, and they can’t be done in the same pipeline. But wait - we just made R do the process of subsetting to only Senators three separate times!</p>
@@ -3184,7 +3184,7 @@ $ age        &lt;dbl&gt; 86, 83, 81, 79, 78, 78, 78, 77, 76, 76, 75, 74, 74, 73,
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.015 sec elapsed</code></pre>
+<pre><code>0.012 sec elapsed</code></pre>
 </div>
 </div>
 <p>Instead, how about we filter the data once, save it into an object, and call on that object:</p>
@@ -3206,7 +3206,7 @@ $ age        &lt;dbl&gt; 86, 83, 81, 79, 78, 78, 78, 77, 76, 76, 75, 74, 74, 73,
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.111 sec elapsed</code></pre>
+<pre><code>0.102 sec elapsed</code></pre>
 </div>
 </div>
 <!-- ### Be smart about order of matrix operations -->
@@ -3316,8 +3316,8 @@ integer overflows</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>Unit: microseconds
                     expr min  lq mean median  uq  max neval
- do_stuff_allocate(1000)  20  20   35     21  22 1388   100
-   do_stuff_tackon(1000) 596 712  967    727 744 7048   100</code></pre>
+ do_stuff_allocate(1000)  20  20   35     21  21 1422   100
+   do_stuff_tackon(1000) 600 706  919    717 736 5615   100</code></pre>
 </div>
 </div>
 </section>
@@ -3412,7 +3412,7 @@ integer overflows</code></pre>
 <p><strong>Question 2:</strong> Why is <code>mean(x)</code> slower than <code>sum(x)/length(x)</code>?</p>
 <ol type="a">
 <li><code>sum()</code> is vectorized, while <code>mean()</code> is not.</li>
-<li>A sum is a smaller number than a mean, so it needs less memory.</li>
+<li>A mean is a smaller number than a sum, so it needs less memory.</li>
 <li><code>mean()</code> calculates the mean twice just in case.</li>
 <li><code>mean()</code> was written in an old version of R.</li>
 </ol>
