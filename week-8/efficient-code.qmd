@@ -211,41 +211,40 @@ For-loops are deathly slow in R. If you absolutely must iterate over a process, 
 ```{r}
 #| echo: true
 #| cache: true
+#| warning: false
 #| label: compare-loops-map-apply
 
-set.seed(1234)
-
-f <- function(x) {
+loop_func <- function(df){
   
-  mean(rnorm(x))
+  # initialize the type object
+  type <- rep(NA, ncol(df))
   
-}
-
-do_stuff_loop <- function(reps) {
-  results <- vector(length = reps)
-  for (i in 1:reps) {
-    results[i] <- f(i)
+  for(i in 1:ncol(df)){
+    
+    # store the class of the ith column of df into the ith entry of type 
+    type[i] <- class(df[,i])
   }
-  return(results)
+  
+  return(type)
 }
 
-do_stuff_apply <- function(reps) {
-  sapply(1:reps, f)
-}
+map_func <- function(df){
+  
+  type <- map_chr(df, class)
+  
+  return(type)
 
+  }
 
-do_stuff_map <- function(reps) {
-  purrr::map_dbl(1:reps, f)
-}
+dat <- as.data.frame(
+  matrix(1,
+         nrow = 5,
+         ncol = 100000)
+  )
 
-
-test <- microbenchmark::microbenchmark(
-  do_stuff_loop(10000),
-  do_stuff_apply(10000),
-  do_stuff_map(10000)
-)
-
-test
+microbenchmark::microbenchmark(loop_func(dat),
+                               map_func(dat),
+                               times = 2)
 ```
 
 ## Use vectorized functions
@@ -285,12 +284,11 @@ do_stuff_tackon <- function(reps) {
   return(results)
 }
 
-test <- microbenchmark::microbenchmark(
+microbenchmark::microbenchmark(
   do_stuff_allocate(1000),
   do_stuff_tackon(1000)
 )
 
-test
 ```
 
 # Tip 3: Use faster existing functions
@@ -326,7 +324,7 @@ same task. Not all functions are created equal!
 For speeding up work with data frames, no package is better than `data.table`!
 
 ```{r, results = "asis", echo = FALSE}
-req_vid("5 minute intro to data.table", url = 'https://www.youtube.com/embed/uueVddWwbkk')
+req_vid("5 minute intro to data.table", url = 'https://www.youtube.com/embed/uueVddWwbkk', embed = FALSE)
 ```
 
 ```{r, results = "asis", echo = FALSE}
@@ -374,7 +372,7 @@ req_read("Profiling", url = 'http://adv-r.had.co.nz/Profiling.html#profiling')
 checkin("Profiling")
 ```
 
-**Question 1:** Why is `vapply` faster than `sapply`?
+**Question 1:** Why is `vapply()` faster than `sapply()`?
 
 a.  It specifies the output type.
 b.  It specifies the input type.
